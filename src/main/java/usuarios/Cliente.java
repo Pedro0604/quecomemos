@@ -4,15 +4,12 @@ public class Cliente extends NoAdmin {
 
     private String email;
 
-    public Cliente() {
-        super();
+    public Cliente(int dni, String clave, String nombre, String apellido, String urlImagen, String email) {
+        super(dni, clave, nombre, apellido, urlImagen);
+        this.email = email;
     }
 
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

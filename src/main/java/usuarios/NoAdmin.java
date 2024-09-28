@@ -2,35 +2,24 @@ package usuarios;
 
 public abstract class NoAdmin extends Usuario {
 
-    private String nombre;
-    private String apellido;
-    private String urlImage;
+    private String nombre, apellido, urlImagen;
 
-    public NoAdmin() {
-        super();
+    public NoAdmin(int dni, String clave, String nombre, String apellido, String urlImagen) {
+        super(dni, clave);
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.urlImagen = urlImagen;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getApellido() {
         return apellido;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getUrlImage() {
-        return urlImage;
-    }
-
-    public void setUrlImage(String urlImage) {
-        this.urlImage = urlImage;
+    public String getUrlImagen() {
+        return urlImagen;
     }
 }
