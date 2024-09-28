@@ -2,18 +2,17 @@ package usuarios;
 
 public class ResponsableDeTurno extends NoAdmin {
 
-	private Turno turno;
+    private Turno turno;
 
-	public ResponsableDeTurno() {
-		super();
-	}
+    public ResponsableDeTurno() {
+        super();
+    }
 
-	public Turno getTurno() {
-		return turno;
-	}
+    public Turno getTurno() {
+        return turno;
+    }
 
-	public void setTurno(Turno turno) {
-		this.turno = turno;
-	}
-	
+    public void setTurno(Turno turno) {
+        this.turno = turno;
+    }
 }

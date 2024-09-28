@@ -5,34 +5,32 @@ import usuarios.Usuario;
 import java.time.LocalTime;
 
 public class Sugerencia {
-	private String descripcion;
-	private TipoSugerencia tipo;
-	private LocalTime fecha;
-	private Usuario usuario;
-	
-	public Sugerencia(String descripcion, TipoSugerencia tipo, Usuario usuario) {
-		super();
-		this.descripcion = descripcion;
-		this.tipo = tipo;
-		this.fecha = LocalTime.now();
-		this.usuario = usuario;
-	}
+    private String descripcion;
+    private TipoSugerencia tipo;
+    private LocalTime fecha;
+    private Usuario usuario;
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public Sugerencia(String descripcion, TipoSugerencia tipo, Usuario usuario) {
+        super();
+        this.descripcion = descripcion;
+        this.tipo = tipo;
+        this.fecha = LocalTime.now();
+        this.usuario = usuario;
+    }
 
-	public TipoSugerencia getTipo() {
-		return tipo;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	public LocalTime getFecha() {
-		return fecha;
-	}
+    public TipoSugerencia getTipo() {
+        return tipo;
+    }
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-	
-	
+    public LocalTime getFecha() {
+        return fecha;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
 }

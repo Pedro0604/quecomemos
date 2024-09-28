@@ -2,18 +2,17 @@ package usuarios;
 
 public class Cliente extends NoAdmin {
 
-	private String email;
+    private String email;
 
-	public Cliente() {
-		super();
-	}
+    public Cliente() {
+        super();
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

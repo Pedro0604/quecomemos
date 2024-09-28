@@ -1,8 +1,8 @@
 package sugerencias;
 
 public enum TipoSugerencia {
-	ALIMENTOS,
-	INFRAESTRUCTURA,
-	ATENCION,
-	OTROS
+    ALIMENTOS,
+    INFRAESTRUCTURA,
+    ATENCION,
+    OTROS
 }
