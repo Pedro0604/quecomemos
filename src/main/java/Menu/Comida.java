@@ -1,3 +1,5 @@
+package Menu;
+
 public class Comida {
     private String nombre;
     private double precio;
