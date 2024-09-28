@@ -3,7 +3,7 @@ package menu;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu implements PreciableNombrable {
+public class Menu implements Preciable {
     private String nombre;
     private List<Comida> menuVegetariano, menuNoVegetariano;
     private double precio;
@@ -46,5 +46,13 @@ public class Menu implements PreciableNombrable {
     @Override
     public double getPrecio() {
         return precio;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Menu menu) {
+            return menu.getNombre().equals(this.getNombre());
+        }
+        return false;
     }
 }

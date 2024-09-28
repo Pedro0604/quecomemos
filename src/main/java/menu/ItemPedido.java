@@ -2,18 +2,33 @@ package menu;
 
 public class ItemPedido {
     private double precio;
-    private String nombre;
+    private Preciable item;
+    private int cantidad;
 
-    public ItemPedido(PreciableNombrable item) {
+    public ItemPedido(Preciable item) {
+        // Guardamos el precio para que aunque cambie el precio del item, el precio del pedido no cambie
         this.precio = item.getPrecio();
-        this.nombre = item.getNombre();
+        this.item = item;
+        this.cantidad = 0;
     }
 
-    public double getPrecio() {
+    public double getPrecioUnitario() {
         return precio;
     }
 
-    public String getNombre() {
-        return nombre;
+    public double getPrecio() {
+        return precio * cantidad;
+    }
+
+    public Preciable getItem() {
+        return item;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void addCantidad() {
+        this.cantidad++;
     }
 }

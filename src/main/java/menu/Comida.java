@@ -1,6 +1,6 @@
 package menu;
 
-public class Comida implements PreciableNombrable {
+public class Comida implements Preciable {
     private String nombre, urlImagen;
     private TipoComida tipoComida;
     private boolean esVegetariana;
@@ -26,12 +26,20 @@ public class Comida implements PreciableNombrable {
         return tipoComida;
     }
 
-    public boolean esVegetariana(){
+    public boolean esVegetariana() {
         return esVegetariana;
     }
 
     @Override
     public double getPrecio() {
         return precio;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Comida comida) {
+            return comida.getNombre().equals(this.getNombre());
+        }
+        return false;
     }
 }
