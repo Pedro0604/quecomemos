@@ -1,4 +1,4 @@
-package Menu;
+package menu;
 
 public class Comida {
     private String nombre;
