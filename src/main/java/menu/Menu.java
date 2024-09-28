@@ -1,4 +1,50 @@
 package menu;
 
-public class Menu {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Menu implements PreciableNombrable {
+    private String nombre;
+    private List<Comida> menuVegetariano, menuNoVegetariano;
+    private double precio;
+
+    public Menu(String nombre, double precio) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.menuVegetariano = new ArrayList<>();
+        this.menuNoVegetariano = new ArrayList<>();
+    }
+
+    public boolean addComidaVegetariana(Comida comida) {
+        if (menuVegetariano.size() < 4 && menuVegetariano.stream().noneMatch(c -> c.getTipoComida() == comida.getTipoComida())) {
+            menuVegetariano.add(comida);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addComidaNoVegetariana(Comida comida) {
+        if (menuNoVegetariano.size() < 4 && menuNoVegetariano.stream().noneMatch(c -> c.getTipoComida() == comida.getTipoComida())) {
+            menuNoVegetariano.add(comida);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeComidaVegetariana(Comida comida) {
+        return menuVegetariano.remove(comida);
+    }
+
+    public boolean removeComidaNoVegetariana(Comida comida) {
+        return menuVegetariano.remove(comida);
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    @Override
+    public double getPrecio() {
+        return precio;
+    }
 }
