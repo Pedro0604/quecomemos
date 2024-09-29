@@ -1,13 +1,17 @@
 package menu;
 
+import usuarios.Cliente;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Pedido implements Preciable {
     private List<ItemPedido> items;
+    private Cliente cliente;
 
-    public Pedido() {
+    public Pedido(Cliente cliente) {
         this.items = new ArrayList<>();
+        this.cliente = cliente;
     }
 
     public void addItem(Preciable item) {
@@ -20,6 +24,10 @@ public class Pedido implements Preciable {
 
     public List<ItemPedido> getItems() {
         return items;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
     }
 
     @Override
