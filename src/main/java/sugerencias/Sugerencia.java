@@ -1,6 +1,6 @@
 package sugerencias;
 
-import usuarios.Usuario;
+import usuarios.Cliente;
 
 import java.time.LocalTime;
 
@@ -8,14 +8,14 @@ public class Sugerencia {
     private String descripcion;
     private TipoSugerencia tipo;
     private LocalTime fecha;
-    private Usuario usuario;
+    private Cliente cliente;
 
-    public Sugerencia(String descripcion, TipoSugerencia tipo, Usuario usuario) {
+    public Sugerencia(String descripcion, TipoSugerencia tipo, Cliente cliente) {
         super();
         this.descripcion = descripcion;
         this.tipo = tipo;
         this.fecha = LocalTime.now();
-        this.usuario = usuario;
+        this.cliente = cliente;
     }
 
     public String getDescripcion() {
@@ -30,7 +30,7 @@ public class Sugerencia {
         return fecha;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Cliente getCliente() {
+        return cliente;
     }
 }
