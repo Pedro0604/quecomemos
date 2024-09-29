@@ -6,9 +6,9 @@ public class Comida implements Preciable {
     private boolean esVegetariana;
     private double precio;
 
-    public Comida(String nombre, String descripcion, TipoComida tipoComida, boolean esVegetariana, double precio) {
+    public Comida(String nombre, String urlImagen, TipoComida tipoComida, boolean esVegetariana, double precio) {
         this.nombre = nombre;
-        this.urlImagen = descripcion;
+        this.urlImagen = urlImagen;
         this.tipoComida = tipoComida;
         this.esVegetariana = esVegetariana;
         this.precio = precio;
