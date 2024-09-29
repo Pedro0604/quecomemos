@@ -1,0 +1,129 @@
+@startuml
+abstract class Usuario [[java:usuarios.Usuario]] {
+	-dni: Integer
+	-clave: String
+
+	+<<create>>Usuario(dni: Integer, clave: String)
+	+getDni(): Integer
+	+getClave(): String
+}
+
+class Administrador [[java:usuarios.Administrador]] extends Usuario {
+    +Administrador(dni: Integer, clave: String)
+}
+
+abstract class NoAdmin [[java:usuarios.NoAdmin]] extends Usuario {
+	-nombre: String
+	-apellido: String
+	-urlImagen: String
+
+	+<<create>>NoAdmin(dni: Integer, clave: String, nombre: String, apellido: String, urlImagen: String)
+	+getNombre(): String
+	+getApellido(): String
+	+getUrlImage(): String
+}
+
+enum Turno [[java:usuarios.Turno]] {
+	MAÑANA
+	TARDE
+}
+
+class ResponsableDeTurno [[java:usuarios.ResponsableDeTurno]] extends NoAdmin {
+	+<<create>>ResponsableDeTurno(dni: Integer, clave: String, nombre: String, apellido: String, urlImagen: String, turno: Turno)
+	+getTurno(): Turno
+}
+ResponsableDeTurno --> "1" Turno : -turno
+
+class Cliente [[java:usuarios.Cliente]] extends NoAdmin {
+	-email: String
+
+	+<<create>>Cliente(dni: Integer, clave: String, nombre: String, apellido: String, urlImagen: String, email: String)
+	+getEmail(): String
+}
+
+enum TipoSugerencia [[java:sugerencias.TipoSugerencia]] {
+	ALIMENTOS
+	INFRAESTRUCTURA
+	ATENCION
+	OTROS
+}
+
+class Sugerencia [[java:sugerencias.Sugerencia]] {
+	-descripcion: String
+	-fecha: LocalTime
+
+	+Sugerencia(descripcion: String, tipo: TipoSugerencia, cliente: Cliente)
+	+getDescripcion(): String
+	+getFecha(): LocalTime
+	+getTipo(): TipoSugerencia
+	+getCliente(): Cliente
+}
+Sugerencia --> "1" TipoSugerencia : -tipo
+Sugerencia --> "1" Cliente : -cliente
+
+interface Preciable [[java:menu.Preciable]] {
+	getPrecio(): Real
+}
+
+enum TipoComida [[java:menu.TipoComida]] {
+	ENTRADA
+	PLATO_PRINCIPAL
+	POSTRE
+	BEBIDA
+}
+
+class Comida [[java:menu.Comida]] implements Preciable {
+	-nombre: String
+	-urlImagen: String
+	-esVegetariana: Boolean
+	-precio: Real
+
+	+<<create>>Comida(nombre: String, urlImagen: String, tipoComida: TipoComida, esVegetariana: Boolean, precio: Real)
+	+getNombre(): String
+	+getUrlImagen(): String
+	+esVegetariana(): Boolean
+	+getPrecio(): Real
+	+getTipoComida(): TipoComida
+	+equals(object: Object): Boolean
+}
+Comida --> "1" TipoComida : -tipoComida
+
+class Menu [[java:menu.Menu]] implements Preciable {
+	-nombre: String
+	-precio: Real
+
+	+<<create>>Menu(nombre: String, precio: Real)
+	+addComidaVegetariana(comida: Comida): Boolean
+	+addComidaNoVegetariana(comida: Comida): Boolean
+	+removeComidaVegetariana(comida: Comida): Boolean
+	+removeComidaNoVegetariana(comida: Comida): Boolean
+	+getNombre(): String
+	+getPrecio(): Real
+	+equals(object: Object): Boolean
+}
+Menu --> "*" Comida : -menuVegetariano
+Menu --> "*" Comida : -menuNoVegetariano
+
+class ItemPedido [[java:menu.ItemPedido]] {
+	-precioUnitario: Real
+	-cantidad: Integer
+
+	+<<create>>ItemPedido(item: Preciable)
+	+getPrecioUnitario(): Real
+	+getPrecio(): Real
+	+getCantidad(): Integer
+	+addCantidad()
+	+getItem(): Preciable
+}
+ItemPedido --> "1" Preciable : -item
+
+class Pedido [[java:menu.Pedido]] implements Preciable {
+	+<<create>>Pedido(cliente: Cliente)
+	+addItem(item: Preciable)
+	+getPrecio(): Real
+	+getCliente(): Cliente
+	+getItems(): List<ItemPedido>
+}
+Pedido --> "*" ItemPedido : -items
+Pedido --> "1" Cliente : -cliente
+@enduml
