@@ -16,17 +16,15 @@ public class Menu implements Preciable {
     }
 
     public boolean addComidaVegetariana(Comida comida) {
-        if (menuVegetariano.size() < 4 && menuVegetariano.stream().noneMatch(c -> c.getTipoComida() == comida.getTipoComida())) {
-            menuVegetariano.add(comida);
-            return true;
+        if (comida.esVegetariana() && menuVegetariano.stream().noneMatch(c -> c.getTipoComida() == comida.getTipoComida())) {
+            return menuVegetariano.add(comida);
         }
         return false;
     }
 
     public boolean addComidaNoVegetariana(Comida comida) {
-        if (menuNoVegetariano.size() < 4 && menuNoVegetariano.stream().noneMatch(c -> c.getTipoComida() == comida.getTipoComida())) {
-            menuNoVegetariano.add(comida);
-            return true;
+        if (menuNoVegetariano.stream().noneMatch(c -> c.getTipoComida() == comida.getTipoComida())) {
+            return menuNoVegetariano.add(comida);
         }
         return false;
     }
@@ -36,7 +34,7 @@ public class Menu implements Preciable {
     }
 
     public boolean removeComidaNoVegetariana(Comida comida) {
-        return menuVegetariano.remove(comida);
+        return menuNoVegetariano.remove(comida);
     }
 
     public String getNombre() {
