@@ -9,7 +9,7 @@ public class ItemPedido {
         // Guardamos el precio para que aunque cambie el precio del item, el precio del pedido no cambie
         this.precioUnitario = item.getPrecio();
         this.item = item;
-        this.cantidad = 0;
+        this.cantidad = 1;
     }
 
     public double getPrecioUnitario() {
