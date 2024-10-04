@@ -2,19 +2,26 @@ package menu;
 
 import usuarios.Cliente;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pedido implements Preciable {
+ class Pedido {
     private List<ItemPedido> items;
     private Cliente cliente;
+    private LocalDate fecha;
 
     public Pedido(Cliente cliente) {
         this.items = new ArrayList<>();
         this.cliente = cliente;
-    }
+        fecha= LocalDate.now();
+        }
 
-    public void addItem(Preciable item) {
+    public LocalDate getFecha() {
+		return fecha;
+	}
+
+	public void addItem(Preciable item) {
         items.stream()
                 .filter(i -> i.getItem().equals(item))
                 .findFirst()
@@ -30,7 +37,7 @@ public class Pedido implements Preciable {
         return cliente;
     }
 
-    @Override
+    
     public double getPrecio() {
         return items.stream().mapToDouble(ItemPedido::getPrecio).sum();
     }
