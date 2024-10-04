@@ -23,7 +23,14 @@ public class MenuTest {
     @Test
     public void addComidaVegetarianaFailsWhenComidaNoVegetariana() {
         Menu menu = new Menu("Menu vegetariano", 20.0);
-        Comida comida = new Comida("Carneeeee", "urlImagen", TipoComida.PLATO_PRINCIPAL, false, 5.0);
+        Comida comida = new Comida("Carne", "urlImagen", TipoComida.PLATO_PRINCIPAL, false, 5.0);
+        assertFalse(menu.addComidaVegetariana(comida));
+    }
+
+    @Test
+    public void addComidaVegetarianaFailsWhenTipoEsOtro() {
+        Menu menu = new Menu("Menu vegetariano", 20.0);
+        Comida comida = new Comida("Chupetin", "urlImagen", TipoComida.OTRO, true, 5.0);
         assertFalse(menu.addComidaVegetariana(comida));
     }
 
@@ -40,6 +47,13 @@ public class MenuTest {
         menu.addComidaNoVegetariana(new Comida("Pollo", "urlImagen", TipoComida.PLATO_PRINCIPAL, false, 10.0));
         Comida comida = new Comida("Bife", "urlImagen", TipoComida.PLATO_PRINCIPAL, false, 12.0);
         assertFalse(menu.addComidaNoVegetariana(comida));
+    }
+
+    @Test
+    public void addComidaNoVegetarianaFailsWhenTipoEsOtro() {
+        Menu menu = new Menu("Menu no vegetariano", 20.0);
+        Comida comida = new Comida("Chupetin", "urlImagen", TipoComida.OTRO, true, 5.0);
+        assertFalse(menu.addComidaVegetariana(comida));
     }
 
     @Test

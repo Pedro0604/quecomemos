@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import usuarios.Cliente;
 
+import java.time.LocalDate;
+
 public class PedidoTest {
 
     @Test
@@ -13,7 +15,7 @@ public class PedidoTest {
         Preciable item = new Comida("Pizza", "urlImagen", TipoComida.PLATO_PRINCIPAL, true, 10.0);
         pedido.addItem(item);
         assertEquals(1, pedido.getItems().size());
-        assertEquals(1, pedido.getItems().getFirst().getCantidad());
+        assertEquals(1, pedido.getItems().get(0).getCantidad());
     }
 
     @Test
@@ -24,7 +26,7 @@ public class PedidoTest {
         pedido.addItem(item);
         pedido.addItem(item);
         assertEquals(1, pedido.getItems().size());
-        assertEquals(2, pedido.getItems().getFirst().getCantidad());
+        assertEquals(2, pedido.getItems().get(0).getCantidad());
     }
 
     @Test
@@ -36,7 +38,7 @@ public class PedidoTest {
         pedido.addItem(item1);
         pedido.addItem(item2);
         assertEquals(2, pedido.getItems().size());
-        assertEquals(item1, pedido.getItems().getFirst().getItem());
+        assertEquals(item1, pedido.getItems().get(0).getItem());
         assertEquals(item2, pedido.getItems().get(1).getItem());
     }
 
@@ -57,5 +59,12 @@ public class PedidoTest {
         pedido.addItem(item2);
         pedido.addItem(item1);
         assertEquals(28.0, pedido.getPrecio());
+    }
+
+    @Test
+    public void getFechaReturnsCurrentDate() {
+        Cliente cliente = new Cliente(44444444, "1234", "Pepe", "Gonzalez", "urlImagen", "pepegonzales@gmail.com");
+        Pedido pedido = new Pedido(cliente);
+        assertEquals(LocalDate.now(), pedido.getFecha());
     }
 }

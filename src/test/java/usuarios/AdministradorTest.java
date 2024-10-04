@@ -6,14 +6,20 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AdministradorTest {
 
     @Test
-    public void dniIsSetCorrectly() {
-        Administrador admin = new Administrador(12345678, "password");
-        assertEquals(12345678, admin.getDni());
+    public void nombreIsSetCorrectly() {
+        Administrador admin = new Administrador(12345678, "password", "John", "Doe", "urlImagen");
+        assertEquals("John", admin.getNombre());
     }
 
     @Test
-    public void claveIsSetCorrectly() {
-        Administrador admin = new Administrador(12345678, "password");
-        assertEquals("password", admin.getClave());
+    public void apellidoIsSetCorrectly() {
+        Administrador admin = new Administrador(12345678, "password", "John", "Doe", "urlImagen");
+        assertEquals("Doe", admin.getApellido());
+    }
+
+    @Test
+    public void urlImagenIsSetCorrectly() {
+        Administrador admin = new Administrador(12345678, "password", "John", "Doe", "urlImagen");
+        assertEquals("urlImagen", admin.getUrlImagen());
     }
 }
