@@ -2,25 +2,20 @@
 abstract class Usuario [[java:usuarios.Usuario]] {
 	-dni: Integer
 	-clave: String
-
-	+<<create>>Usuario(dni: Integer, clave: String)
-	+getDni(): Integer
-	+getClave(): String
-}
-
-class Administrador [[java:usuarios.Administrador]] extends Usuario {
-    +Administrador(dni: Integer, clave: String)
-}
-
-abstract class NoAdmin [[java:usuarios.NoAdmin]] extends Usuario {
 	-nombre: String
 	-apellido: String
 	-urlImagen: String
 
-	+<<create>>NoAdmin(dni: Integer, clave: String, nombre: String, apellido: String, urlImagen: String)
+	+<<create>>Usuario(dni: Integer, clave: String, nombre: String, apellido: String, urlImagen: String)
+	+getDni(): Integer
+	+getClave(): String
 	+getNombre(): String
 	+getApellido(): String
 	+getUrlImage(): String
+}
+
+class Administrador [[java:usuarios.Administrador]] extends Usuario {
+    +Administrador(dni: Integer, clave: String, nombre: String, apellido: String, urlImagen: String)
 }
 
 enum Turno [[java:usuarios.Turno]] {
@@ -28,13 +23,13 @@ enum Turno [[java:usuarios.Turno]] {
 	TARDE
 }
 
-class ResponsableDeTurno [[java:usuarios.ResponsableDeTurno]] extends NoAdmin {
+class ResponsableDeTurno [[java:usuarios.ResponsableDeTurno]] extends Usuario {
 	+<<create>>ResponsableDeTurno(dni: Integer, clave: String, nombre: String, apellido: String, urlImagen: String, turno: Turno)
 	+getTurno(): Turno
 }
 ResponsableDeTurno --> "1" Turno : -turno
 
-class Cliente [[java:usuarios.Cliente]] extends NoAdmin {
+class Cliente [[java:usuarios.Cliente]] extends Usuario {
 	-email: String
 
 	+<<create>>Cliente(dni: Integer, clave: String, nombre: String, apellido: String, urlImagen: String, email: String)
@@ -45,7 +40,7 @@ enum TipoSugerencia [[java:sugerencias.TipoSugerencia]] {
 	ALIMENTOS
 	INFRAESTRUCTURA
 	ATENCION
-	OTROS
+	OTRO
 }
 
 class Sugerencia [[java:sugerencias.Sugerencia]] {
@@ -58,7 +53,7 @@ class Sugerencia [[java:sugerencias.Sugerencia]] {
 	+getTipo(): TipoSugerencia
 	+getCliente(): Cliente
 }
-Sugerencia --> "1" TipoSugerencia : -tipo
+Sugerencia -l-> "1" TipoSugerencia : -tipo
 Sugerencia --> "1" Cliente : -cliente
 
 interface Preciable [[java:menu.Preciable]] {
@@ -70,6 +65,7 @@ enum TipoComida [[java:menu.TipoComida]] {
 	PLATO_PRINCIPAL
 	POSTRE
 	BEBIDA
+	OTRO
 }
 
 class Comida [[java:menu.Comida]] implements Preciable {
@@ -86,7 +82,7 @@ class Comida [[java:menu.Comida]] implements Preciable {
 	+getTipoComida(): TipoComida
 	+equals(object: Object): Boolean
 }
-Comida --> "1" TipoComida : -tipoComida
+Comida -u-> "1" TipoComida : -tipoComida
 
 class Menu [[java:menu.Menu]] implements Preciable {
 	-nombre: String
@@ -101,8 +97,8 @@ class Menu [[java:menu.Menu]] implements Preciable {
 	+getPrecio(): Real
 	+equals(object: Object): Boolean
 }
-Menu --> "*" Comida : -menuVegetariano
-Menu --> "*" Comida : -menuNoVegetariano
+Menu -l-> "*" Comida : -comidasVegetarianas
+Menu -l-> "*" Comida : -comidasNoVegetarianas
 
 class ItemPedido [[java:menu.ItemPedido]] {
 	-precioUnitario: Real
@@ -117,13 +113,31 @@ class ItemPedido [[java:menu.ItemPedido]] {
 }
 ItemPedido --> "1" Preciable : -item
 
-class Pedido [[java:menu.Pedido]] implements Preciable {
+class Pedido [[java:menu.Pedido]] {
+    -fecha: Date
 	+<<create>>Pedido(cliente: Cliente)
 	+addItem(item: Preciable)
 	+getPrecio(): Real
 	+getCliente(): Cliente
 	+getItems(): List<ItemPedido>
+	+getFecha(): Date
 }
 Pedido --> "*" ItemPedido : -items
 Pedido --> "1" Cliente : -cliente
+
+enum MetodoPago [[java:menu.MetodoPago]] {
+    CREDITO
+    EFECTIVO
+    DEBITO
+    MERCADO_PAGO
+    CUENTA_DNI
+}
+
+class Pago [[java:menu.Pago]] {
+    +<<create>>Pago(pedido: Pedido, metodo: MetodoPago)
+    +getMetodo(): MetodoPago
+    +getPedido(): Pedido
+}
+Pago --> "1" MetodoPago : -metodo
+Pago --> "1" Pedido : -pedido
 @enduml

@@ -1,6 +1,6 @@
 package usuarios;
 
-public class Cliente extends NoAdmin {
+public class Cliente extends Usuario {
 
     private String email;
 

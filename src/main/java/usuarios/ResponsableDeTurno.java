@@ -1,6 +1,6 @@
 package usuarios;
 
-public class ResponsableDeTurno extends NoAdmin {
+public class ResponsableDeTurno extends Usuario {
 
     private Turno turno;
 

@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
- class Pedido {
+public class Pedido {
     private List<ItemPedido> items;
     private Cliente cliente;
     private LocalDate fecha;
@@ -14,14 +14,14 @@ import java.util.List;
     public Pedido(Cliente cliente) {
         this.items = new ArrayList<>();
         this.cliente = cliente;
-        fecha= LocalDate.now();
-        }
+        fecha = LocalDate.now();
+    }
 
     public LocalDate getFecha() {
-		return fecha;
-	}
+        return fecha;
+    }
 
-	public void addItem(Preciable item) {
+    public void addItem(Preciable item) {
         items.stream()
                 .filter(i -> i.getItem().equals(item))
                 .findFirst()
@@ -37,7 +37,7 @@ import java.util.List;
         return cliente;
     }
 
-    
+
     public double getPrecio() {
         return items.stream().mapToDouble(ItemPedido::getPrecio).sum();
     }
