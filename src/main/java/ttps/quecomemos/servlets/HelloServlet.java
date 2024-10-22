@@ -1,4 +1,4 @@
-package ttps.quecomemos;
+package ttps.quecomemos.servlets;
 
 import java.io.*;
 import jakarta.servlet.http.*;
