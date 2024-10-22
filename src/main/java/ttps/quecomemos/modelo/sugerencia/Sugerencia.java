@@ -1,6 +1,6 @@
-package sugerencias;
+package ttps.quecomemos.modelo.sugerencia;
 
-import usuarios.Cliente;
+import ttps.quecomemos.modelo.usuario.Cliente;
 
 import java.time.LocalTime;
 

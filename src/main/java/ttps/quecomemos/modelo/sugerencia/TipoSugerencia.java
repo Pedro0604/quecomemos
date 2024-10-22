@@ -1,4 +1,4 @@
-package sugerencias;
+package ttps.quecomemos.modelo.sugerencia;
 
 public enum TipoSugerencia {
     ALIMENTOS,

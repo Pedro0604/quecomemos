@@ -1,6 +1,7 @@
-package menu;
+package ttps.quecomemos.modelo.pedido;
 
-import usuarios.Cliente;
+import ttps.quecomemos.modelo.menu.Preciable;
+import ttps.quecomemos.modelo.usuario.Cliente;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

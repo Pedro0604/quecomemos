@@ -1,6 +1,9 @@
 package usuarios;
 
 import org.junit.jupiter.api.Test;
+import ttps.quecomemos.modelo.usuario.ResponsableDeTurno;
+import ttps.quecomemos.modelo.usuario.Turno;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ResponsableDeTurnoTest {

@@ -1,6 +1,11 @@
-package menu;
+package pedido;
 
 import org.junit.jupiter.api.Test;
+import ttps.quecomemos.modelo.menu.Comida;
+import ttps.quecomemos.modelo.pedido.ItemPedido;
+import ttps.quecomemos.modelo.menu.Preciable;
+import ttps.quecomemos.modelo.menu.TipoComida;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ItemPedidoTest {

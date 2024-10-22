@@ -1,4 +1,4 @@
-package usuarios;
+package ttps.quecomemos.modelo.usuario;
 
 public abstract class Usuario {
 

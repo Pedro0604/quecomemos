@@ -1,4 +1,6 @@
-package menu;
+package ttps.quecomemos.modelo.pago;
+
+import ttps.quecomemos.modelo.pedido.Pedido;
 
 public class Pago {
     private Pedido pedido;

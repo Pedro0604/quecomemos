@@ -1,4 +1,4 @@
-package menu;
+package ttps.quecomemos.modelo.menu;
 
 public class Comida implements Preciable {
     private String nombre, urlImagen;

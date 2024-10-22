@@ -1,6 +1,8 @@
 package usuarios;
 
 import org.junit.jupiter.api.Test;
+import ttps.quecomemos.modelo.usuario.Administrador;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AdministradorTest {

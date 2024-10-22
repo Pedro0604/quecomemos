@@ -1,4 +1,6 @@
-package menu;
+package ttps.quecomemos.modelo.pedido;
+
+import ttps.quecomemos.modelo.menu.Preciable;
 
 public class ItemPedido {
     private double precioUnitario;

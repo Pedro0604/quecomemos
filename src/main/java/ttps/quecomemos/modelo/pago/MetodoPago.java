@@ -1,4 +1,4 @@
-package menu;
+package ttps.quecomemos.modelo.pago;
 
 public enum MetodoPago {
     CREDITO,

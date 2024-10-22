@@ -2,7 +2,10 @@ package sugerencias;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import usuarios.Cliente;
+
+import ttps.quecomemos.modelo.sugerencia.Sugerencia;
+import ttps.quecomemos.modelo.sugerencia.TipoSugerencia;
+import ttps.quecomemos.modelo.usuario.Cliente;
 
 public class SugerenciaTest {
 

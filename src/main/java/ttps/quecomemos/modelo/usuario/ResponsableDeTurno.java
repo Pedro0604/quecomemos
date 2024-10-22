@@ -1,4 +1,4 @@
-package usuarios;
+package ttps.quecomemos.modelo.usuario;
 
 public class ResponsableDeTurno extends Usuario {
 

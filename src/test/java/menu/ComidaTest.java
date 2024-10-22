@@ -1,6 +1,9 @@
 package menu;
 
 import org.junit.jupiter.api.Test;
+import ttps.quecomemos.modelo.menu.Comida;
+import ttps.quecomemos.modelo.menu.TipoComida;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ComidaTest {
