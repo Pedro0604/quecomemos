@@ -63,7 +63,7 @@ public class GenericDAOHibernateJPA<T> implements GenericDAO<T> {
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(Long id) {
         EntityManager em = EMF.getEMF().createEntityManager();
         T entity = em.find(this.getPersistentClass(), id);
         if (entity != null) {
@@ -74,13 +74,13 @@ public class GenericDAOHibernateJPA<T> implements GenericDAO<T> {
 
     public List<T> getAll(String columnOrder) {
         Query consulta =
-                EMF.getEMF().createEntityManager().createQuery("select e from " + getPersistentClass().getSimpleName() + " e order by e." + columnOrder);
+                EMF.getEMF().createEntityManager().createQuery("SELECT e FROM " + getPersistentClass().getSimpleName() + " e order by e." + columnOrder);
         List<T> resultado = (List<T>) consulta.getResultList();
         return resultado;
     }
 
     @Override
-    public T get(long id) {
+    public T get(Long id) {
         EntityManager em = EMF.getEMF().createEntityManager();
         T entity = em.find(this.getPersistentClass(), id);
         em.close();

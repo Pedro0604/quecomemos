@@ -1,5 +1,5 @@
 # TTPS - 2024
 
-## Entregable 03
+## Trabajo integrador
 
-### Modelo de objetos
+### ¿Qué comemos?

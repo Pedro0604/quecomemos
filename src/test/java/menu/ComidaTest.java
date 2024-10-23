@@ -27,9 +27,9 @@ public class ComidaTest {
     }
 
     @Test
-    public void esVegetarianaIsSetCorrectly() {
+    public void isVegetarianaIsSetCorrectly() {
         Comida comida = new Comida("Pizza", "urlImagen", TipoComida.PLATO_PRINCIPAL, true, 10.0);
-        assertTrue(comida.esVegetariana());
+        assertTrue(comida.isVegetariana());
     }
 
     @Test
