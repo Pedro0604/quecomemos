@@ -3,6 +3,7 @@ package ttps.quecomemos.modelo.pedido;
 import jakarta.persistence.*;
 import ttps.quecomemos.modelo.menu.Preciable;
 import ttps.quecomemos.modelo.usuario.Cliente;
+import ttps.quecomemos.modelo.pago.Pago;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,6 +21,9 @@ public class Pedido {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+
+    @OneToOne
+    private Pago pago;
 
     @Column(nullable = false)
     private LocalDate fecha;
