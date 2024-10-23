@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "sugerencias") // Indica el nombre de la tabla en la base de datos
 public class Sugerencia {
 
     @Id
@@ -27,7 +26,6 @@ public class Sugerencia {
     @JoinColumn(name = "cliente_id", nullable = false) // Nombre de la columna FK en la tabla
     private Cliente cliente;
 
-    // Constructor sin parámetros requerido por JPA
     public Sugerencia() {
     }
 

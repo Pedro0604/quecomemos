@@ -1,5 +1,6 @@
 package ttps.quecomemos.persistencia.dao.classes;
 
+import ttps.quecomemos.modelo.sugerencia.Sugerencia;
 import ttps.quecomemos.persistencia.dao.jpa.UsuarioDAOHibernateJPA;
 import ttps.quecomemos.persistencia.dao.jpa.SugerenciaDAOHibernateJPA;
 import ttps.quecomemos.modelo.menu.Comida;
@@ -14,7 +15,7 @@ public class FactoryDAO {
     public static GenericDAO<Usuario> getUsuarioDAO() {
         return new UsuarioDAOHibernateJPA();
     }
-    public static SugerenciaDAO getSugerenciaDAO() {return new SugerenciaDAOHibernateJPA();}
+    public static GenericDAO<Sugerencia> getSugerenciaDAO() {return new SugerenciaDAOHibernateJPA();}
 
     public static GenericDAO<Cliente> getClienteDAO() {
         return new ClienteDAOHibernateJPA();
