@@ -14,9 +14,16 @@ public class MenuDAOHibernateJPA extends GenericDAOHibernateJPA<Menu> implements
     @Override
     public Menu getByName(String name) {
         EntityManager em = EMF.getEMF().createEntityManager();
-        Menu entity = (Menu) em.createQuery("SELECT m FROM " + this.getPersistentClass().getSimpleName() + " m WHERE m.nombre = :name")
-                .setParameter("name", name).getSingleResult();
-        em.close();
-        return entity;
+        Menu menu;
+        try {
+            menu = (Menu) em.createQuery("SELECT m FROM " + this.getPersistentClass().getSimpleName() + " m WHERE m.nombre = :name")
+                    .setParameter("name", name).getSingleResult();
+        } catch (Exception e) {
+            menu = null;
+        }
+        finally {
+            em.close();
+        }
+        return menu;
     }
 }

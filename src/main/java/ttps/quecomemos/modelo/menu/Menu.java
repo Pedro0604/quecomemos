@@ -7,11 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-public class Menu {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Menu extends Preciable {
     @Column(unique = true, nullable = false)
     private String nombre;
 
@@ -87,12 +83,13 @@ public class Menu {
         this.vegetariano = vegetariano;
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public double getPrecio() {
+        return precio;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 
     @Override

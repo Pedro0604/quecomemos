@@ -14,9 +14,15 @@ public class ComidaDAOHibernateJPA extends GenericDAOHibernateJPA<Comida> implem
     @Override
     public Comida getByName(String name) {
         EntityManager em = EMF.getEMF().createEntityManager();
-        Comida comida = (Comida) em.createQuery("SELECT c FROM " + this.getPersistentClass().getSimpleName() + " c WHERE c.nombre = :name")
-                .setParameter("name", name).getSingleResult();
-        em.close();
+        Comida comida;
+        try {
+            comida = (Comida) em.createQuery("SELECT c FROM " + this.getPersistentClass().getSimpleName() + " c WHERE c.nombre = :name")
+                    .setParameter("name", name).getSingleResult();
+        } catch (Exception e) {
+            comida = null;
+        } finally {
+            em.close();
+        }
         return comida;
     }
 }

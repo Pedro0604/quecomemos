@@ -5,9 +5,10 @@ import jakarta.persistence.*;
 import java.time.DayOfWeek;
 
 @Entity
-public class MenuDiario extends Preciable {
-    @Column(nullable = false)
-    private double precio;
+public class MenuDiario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -22,10 +23,6 @@ public class MenuDiario extends Preciable {
     private Menu menuNoVegetariano;
 
     public MenuDiario() {
-    }
-
-    public MenuDiario(double precio) {
-        this.precio = precio;
     }
 
     public Menu getMenuVegetariano() {
@@ -64,12 +61,11 @@ public class MenuDiario extends Preciable {
         this.dia = dia;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public Long getId() {
+        return id;
     }
 
-    @Override
-    public double getPrecio() {
-        return this.precio;
+    public void setId(Long id) {
+        this.id = id;
     }
 }
