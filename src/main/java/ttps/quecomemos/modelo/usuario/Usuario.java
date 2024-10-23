@@ -1,9 +1,23 @@
 package ttps.quecomemos.modelo.usuario;
 
+import jakarta.persistence.*;
+
 public abstract class Usuario {
 
+    @Column(unique = true, nullable = false)
     private int dni;
-    private String clave, nombre, apellido, urlImagen;
+
+    @Column(nullable = false)
+    private String clave;
+
+    @Column(nullable = false)
+    private String nombre;
+
+    @Column(nullable = false)
+    private String apellido;
+
+    @Column(nullable = false)
+    private String urlImagen;
 
     public Usuario(int dni, String clave, String nombre, String apellido, String urlImagen) {
         this.dni = dni;
@@ -11,6 +25,9 @@ public abstract class Usuario {
         this.nombre = nombre;
         this.apellido = apellido;
         this.urlImagen = urlImagen;
+    }
+
+    public Usuario() {
     }
 
     public int getDni() {
@@ -32,4 +49,25 @@ public abstract class Usuario {
     public String getUrlImagen() {
         return urlImagen;
     }
+
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
+    }
+
 }
