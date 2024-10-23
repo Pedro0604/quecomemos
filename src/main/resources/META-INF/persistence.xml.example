@@ -7,16 +7,15 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>ttps.quecomemos.modelo.menu.Menu</class>
         <class>ttps.quecomemos.modelo.menu.Comida</class>
-        <!--
-        Descomentar las clases una vez que hayan sido implementadas
-        <class>ttps.quecomemos.modelo.pago.Pago</class>
         <class>ttps.quecomemos.modelo.pedido.ItemPedido</class>
         <class>ttps.quecomemos.modelo.pedido.Pedido</class>
-        <class>ttps.quecomemos.modelo.sugerencia.Sugerencia</class>
         <class>ttps.quecomemos.modelo.usuario.Usuario</class>
         <class>ttps.quecomemos.modelo.usuario.Administrador</class>
         <class>ttps.quecomemos.modelo.usuario.Cliente</class>
         <class>ttps.quecomemos.modelo.usuario.ResponsableDeTurno</class>
+        <!--
+        <class>ttps.quecomemos.modelo.pago.Pago</class>
+        <class>ttps.quecomemos.modelo.sugerencia.Sugerencia</class>
          -->
         <properties>
             <property name="hibernate.connection.driver_class"
@@ -29,7 +28,6 @@
             <property name="hibernate.default_schema" value="ttps-quecomemos"/>
             <property name="hibernate.dialect.storage_engin"
                       value="innodb"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
             <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
     </persistence-unit>

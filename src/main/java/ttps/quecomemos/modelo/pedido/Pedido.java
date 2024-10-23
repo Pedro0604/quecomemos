@@ -1,5 +1,6 @@
 package ttps.quecomemos.modelo.pedido;
 
+import jakarta.persistence.*;
 import ttps.quecomemos.modelo.menu.Preciable;
 import ttps.quecomemos.modelo.usuario.Cliente;
 
@@ -7,10 +8,26 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Pedido {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "pedido")
     private List<ItemPedido> items;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+
+    @Column(nullable = false)
     private LocalDate fecha;
+
+    public Pedido() {
+        this.items = new ArrayList<>();
+        fecha = LocalDate.now();
+    }
 
     public Pedido(Cliente cliente) {
         this.items = new ArrayList<>();
@@ -18,8 +35,36 @@ public class Pedido {
         fecha = LocalDate.now();
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<ItemPedido> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemPedido> items) {
+        this.items = items;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     public LocalDate getFecha() {
         return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
 
     public void addItem(Preciable item) {
@@ -29,15 +74,6 @@ public class Pedido {
                 .ifPresentOrElse(ItemPedido::addCantidad,
                         () -> this.items.add(new ItemPedido(item)));
     }
-
-    public List<ItemPedido> getItems() {
-        return items;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
 
     public double getPrecio() {
         return items.stream().mapToDouble(ItemPedido::getPrecio).sum();

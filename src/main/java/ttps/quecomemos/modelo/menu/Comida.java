@@ -3,11 +3,7 @@ package ttps.quecomemos.modelo.menu;
 import jakarta.persistence.*;
 
 @Entity
-public class Comida implements Preciable {
-    @Id
-    @GeneratedValue
-    private Long id;
-
+public class Comida extends Preciable {
     @Column(unique = true, nullable = false)
     private String nombre;
 
@@ -31,14 +27,6 @@ public class Comida implements Preciable {
         this.tipoComida = tipoComida;
         this.vegetariana = vegetariana;
         this.precio = precio;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNombre() {
