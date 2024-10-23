@@ -1,4 +1,4 @@
-package menu;
+package modelo.menu;
 
 import org.junit.jupiter.api.Test;
 import ttps.quecomemos.modelo.menu.Comida;

@@ -1,4 +1,4 @@
-package pago;
+package modelo.pago;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
