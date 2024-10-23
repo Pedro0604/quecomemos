@@ -26,19 +26,19 @@ import ttps.quecomemos.persistencia.dao.jpa.usuarios.UsuarioDAOHibernateJPA;
 
 public class FactoryDAO {
     // Usuario
-    public static GenericDAO<Usuario> getUsuarioDAO() {
+    public static UsuarioDAO<Usuario> getUsuarioDAO() {
         return new UsuarioDAOHibernateJPA();
     }
 
-    public static GenericDAO<Cliente> getClienteDAO() {
+    public static ClienteDAO getClienteDAO() {
         return new ClienteDAOHibernateJPA();
     }
 
-    public static GenericDAO<ResponsableDeTurno> getResponsableDeTurnoDAO() {
+    public static UsuarioDAO<ResponsableDeTurno> getResponsableDeTurnoDAO() {
         return new ResponsableDeTurnoDAOHibernateJPA();
     }
 
-    public static GenericDAO<Administrador> getAdministradorDAO() {
+    public static UsuarioDAO<Administrador> getAdministradorDAO() {
         return new AdministradorDAOHibernateJPA();
     }
 
