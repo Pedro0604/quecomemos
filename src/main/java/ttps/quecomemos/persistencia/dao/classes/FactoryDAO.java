@@ -1,8 +1,9 @@
 package ttps.quecomemos.persistencia.dao.classes;
 
 import ttps.quecomemos.modelo.menu.MenuDiario;
-import ttps.quecomemos.modelo.pedido.Pedido;
 import ttps.quecomemos.modelo.pedido.ItemPedido;
+import ttps.quecomemos.modelo.pedido.Pedido;
+import ttps.quecomemos.modelo.sugerencia.Sugerencia;
 import ttps.quecomemos.modelo.usuario.Administrador;
 import ttps.quecomemos.modelo.usuario.Cliente;
 import ttps.quecomemos.modelo.usuario.ResponsableDeTurno;
@@ -59,4 +60,7 @@ public class FactoryDAO {
     // Pago
 
     // Sugerencia
+    public static GenericDAO<Sugerencia> getSugerenciaDAO() {
+        return new SugerenciaDAOHibernateJPA();
+    }
 }
