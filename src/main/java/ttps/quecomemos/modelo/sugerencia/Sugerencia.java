@@ -7,23 +7,22 @@ import java.time.LocalTime;
 
 @Entity
 public class Sugerencia {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Generación automática de IDs
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 255) // Limita la longitud de la descripción
+    @Column(nullable = false, length = 255)
     private String descripcion;
 
-    @Enumerated(EnumType.STRING) // Si TipoSugerencia es un enum, se almacena como String
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoSugerencia tipo;
 
     @Column(nullable = false)
     private LocalTime fecha;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Relación Muchos-a-Uno con Cliente
-    @JoinColumn(name = "cliente_id", nullable = false) // Nombre de la columna FK en la tabla
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
     public Sugerencia() {
@@ -36,37 +35,40 @@ public class Sugerencia {
         this.cliente = cliente;
     }
 
-    // Getters y Setters
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescripcion() {
         return descripcion;
     }
 
-    public TipoSugerencia getTipo() {
-        return tipo;
-    }
-
-    public LocalTime getFecha() {
-        return fecha;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public TipoSugerencia getTipo() {
+        return tipo;
     }
 
     public void setTipo(TipoSugerencia tipo) {
         this.tipo = tipo;
     }
 
+    public LocalTime getFecha() {
+        return fecha;
+    }
+
     public void setFecha(LocalTime fecha) {
         this.fecha = fecha;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
     }
 
     public void setCliente(Cliente cliente) {

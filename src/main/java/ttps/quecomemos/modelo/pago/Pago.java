@@ -5,7 +5,6 @@ import ttps.quecomemos.modelo.pedido.Pedido;
 
 @Entity
 public class Pago {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,7 +13,7 @@ public class Pago {
     @JoinColumn(name = "pedido_id", nullable = false)
     private Pedido pedido;
 
-    @Enumerated(EnumType.STRING) //
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private MetodoPago metodo;
 
@@ -27,9 +26,12 @@ public class Pago {
         this.metodo = metodo;
     }
 
-    // Getters y Setters
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Pedido getPedido() {
