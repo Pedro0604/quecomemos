@@ -9,7 +9,7 @@ public class Pago {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, nullable = false, mapped_by="pago")
+    @OneToOne(optional = false, mappedBy="pago")
     private Pedido pedido;
 
     @Enumerated(EnumType.STRING)

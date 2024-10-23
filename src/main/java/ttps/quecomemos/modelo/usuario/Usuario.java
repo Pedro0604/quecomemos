@@ -3,7 +3,7 @@ package ttps.quecomemos.modelo.usuario;
 import jakarta.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED) // o @Inheritance
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Usuario {
 
     @Id

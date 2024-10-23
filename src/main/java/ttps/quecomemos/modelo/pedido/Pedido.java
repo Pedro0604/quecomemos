@@ -19,10 +19,10 @@ public class Pedido {
     private List<ItemPedido> items;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private Pago pago;
 
     @Column(nullable = false)
@@ -69,6 +69,14 @@ public class Pedido {
 
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
+    }
+
+    public Pago getPago() {
+        return pago;
+    }
+
+    public void setPago(Pago pago) {
+        this.pago = pago;
     }
 
     public void addItem(Preciable item) {
