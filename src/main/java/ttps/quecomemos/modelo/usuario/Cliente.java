@@ -1,19 +1,22 @@
 package ttps.quecomemos.modelo.usuario;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import ttps.quecomemos.modelo.pedido.Pedido;
+
+import java.util.List;
 
 @Entity
 public class Cliente extends Usuario {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(unique = true, nullable = false)
     private String email;
+
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "cliente")
+    private List<Pedido> pedidos;
 
     public Cliente(int dni, String clave, String nombre, String apellido, String urlImagen, String email) {
         super(dni, clave, nombre, apellido, urlImagen);

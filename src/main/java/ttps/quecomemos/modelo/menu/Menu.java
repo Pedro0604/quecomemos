@@ -7,17 +7,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-public class Menu implements Preciable {
-    @Id
-    @GeneratedValue
-    private Long id;
-
+public class Menu extends Preciable {
     @Column(unique = true, nullable = false)
     private String nombre;
 
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_id")
-    private List<Comida> comidas;
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "menu_comida",
+            joinColumns = @JoinColumn(name = "menu_id"),
+            inverseJoinColumns = @JoinColumn(name = "comida_id")
+    )
+    private List<Comida> comidas = new ArrayList<>();
 
     @Column(nullable = false)
     private double precio;
@@ -52,14 +52,6 @@ public class Menu implements Preciable {
 
     public boolean removeComidaNoVegetariana(Comida comida) {
         return getComidasNoVegetarianas().remove(comida);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNombre() {

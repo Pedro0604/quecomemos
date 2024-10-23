@@ -68,7 +68,7 @@ enum TipoComida [[java:menu.TipoComida]] {
 	OTRO
 }
 
-class Comida [[java:menu.Comida]] implements Preciable {
+class Comida [[java:menu.Comida]] extends Preciable {
 	-nombre: String
 	-urlImagen: String
 	-esVegetariana: Boolean
@@ -84,7 +84,7 @@ class Comida [[java:menu.Comida]] implements Preciable {
 }
 Comida -u-> "1" TipoComida : -tipoComida
 
-class Menu [[java:menu.Menu]] implements Preciable {
+class Menu [[java:menu.Menu]] extends Preciable {
 	-nombre: String
 	-precio: Real
 
