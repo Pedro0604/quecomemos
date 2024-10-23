@@ -22,6 +22,9 @@ public class Menu extends Preciable {
     @Column(nullable = false)
     private double precio;
 
+    @Column(nullable = false)
+    private boolean vegetariano;
+
     public Menu() {
         this.comidas = new ArrayList<>();
     }
@@ -32,26 +35,22 @@ public class Menu extends Preciable {
         this.comidas = new ArrayList<>();
     }
 
-    public boolean addComidaVegetariana(Comida comida) {
-        if (comida.isVegetariana() && comida.getTipoComida() != TipoComida.OTRO && getComidasVegetarianas().stream().noneMatch(c -> c.getTipoComida() == comida.getTipoComida())) {
-            return getComidasVegetarianas().add(comida);
+    public Menu(String nombre, double precio, boolean vegetariano) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.vegetariano = vegetariano;
+        this.comidas = new ArrayList<>();
+    }
+
+    public boolean addComida(Comida comida) {
+        if ((!this.vegetariano || comida.isVegetariana()) && comida.getTipoComida() != TipoComida.OTRO && this.getComidas().stream().noneMatch(c -> c.getTipoComida() == comida.getTipoComida())) {
+            return this.getComidas().add(comida);
         }
         return false;
     }
 
-    public boolean addComidaNoVegetariana(Comida comida) {
-        if (comida.getTipoComida() != TipoComida.OTRO && getComidasNoVegetarianas().stream().noneMatch(c -> c.getTipoComida() == comida.getTipoComida())) {
-            return getComidasNoVegetarianas().add(comida);
-        }
-        return false;
-    }
-
-    public boolean removeComidaVegetariana(Comida comida) {
-        return getComidasVegetarianas().remove(comida);
-    }
-
-    public boolean removeComidaNoVegetariana(Comida comida) {
-        return getComidasNoVegetarianas().remove(comida);
+    public boolean removeComida(Comida comida) {
+        return this.getComidas().remove(comida);
     }
 
     public String getNombre() {
@@ -67,15 +66,21 @@ public class Menu extends Preciable {
     }
 
     public void setComidas(List<Comida> comidas) {
+        if (this.vegetariano && comidas.stream().anyMatch(c -> !c.isVegetariana())) {
+            throw new IllegalArgumentException("No se puede hacer un menu vegetariano con comidas no vegetarianas");
+        }
         this.comidas = comidas;
     }
 
-    public List<Comida> getComidasVegetarianas() {
-        return comidas.stream().filter(Comida::isVegetariana).collect(Collectors.toList());
+    public boolean isVegetariano() {
+        return vegetariano;
     }
 
-    public List<Comida> getComidasNoVegetarianas() {
-        return comidas.stream().filter(comida -> !comida.isVegetariana()).collect(Collectors.toList());
+    public void setVegetariano(boolean vegetariano) {
+        if (vegetariano && this.comidas.stream().anyMatch(c -> !c.isVegetariana())) {
+            throw new IllegalArgumentException("No se puede hacer un menu vegetariano con comidas no vegetarianas");
+        }
+        this.vegetariano = vegetariano;
     }
 
     @Override

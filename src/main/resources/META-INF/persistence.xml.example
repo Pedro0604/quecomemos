@@ -5,6 +5,7 @@
              version="3.2">
     <persistence-unit name="quecomemos">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>ttps.quecomemos.modelo.menu.MenuDiario</class>
         <class>ttps.quecomemos.modelo.menu.Menu</class>
         <class>ttps.quecomemos.modelo.menu.Comida</class>
         <class>ttps.quecomemos.modelo.pedido.ItemPedido</class>

@@ -1,4 +1,4 @@
-package usuarios;
+package modelo.usuarios;
 
 import org.junit.jupiter.api.Test;
 import ttps.quecomemos.modelo.usuario.Administrador;
