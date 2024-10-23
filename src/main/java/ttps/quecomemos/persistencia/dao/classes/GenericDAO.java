@@ -7,11 +7,11 @@ public interface GenericDAO<T> {
 
     public void delete(T entity);
 
-    public void delete(long id);
+    public void delete(Long id);
 
     public T persist(T entity);
 
-    public T get(long id);
+    public T get(Long id);
 
     public List<T> getAll(String columnOrder);
 }

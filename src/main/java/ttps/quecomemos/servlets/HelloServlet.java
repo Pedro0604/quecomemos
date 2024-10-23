@@ -1,27 +1,17 @@
 package ttps.quecomemos.servlets;
 
 import java.io.*;
+
+import jakarta.persistence.EntityManager;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import ttps.quecomemos.persistencia.dao.classes.FactoryDAO;
+import ttps.quecomemos.persistencia.emf.EMF;
 
 @WebServlet(name = "helloServlet", value = "/hello-servlet")
 public class HelloServlet extends HttpServlet {
-    private String message;
-
-    public void init() {
-        message = "Hello World!";
-    }
-
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
-
-        // Hello
         PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("</body></html>");
-    }
-
-    public void destroy() {
+        FactoryDAO.getMenuDAO().getAll("nombre").forEach(menu -> out.println(menu.getNombre()));
     }
 }
