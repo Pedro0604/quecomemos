@@ -2,7 +2,13 @@ package ttps.quecomemos.modelo.usuario;
 
 import jakarta.persistence.*;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED) // o @Inheritance
 public abstract class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @Column(unique = true, nullable = false)
     private int dni;

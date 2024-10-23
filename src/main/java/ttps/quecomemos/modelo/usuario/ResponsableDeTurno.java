@@ -5,10 +5,6 @@ import jakarta.persistence.*;
 @Entity
 public class ResponsableDeTurno extends Usuario {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
     @Column(nullable = false)
     private Turno turno;
 

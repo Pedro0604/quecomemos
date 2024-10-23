@@ -19,6 +19,10 @@ import ttps.quecomemos.persistencia.dao.jpa.pago.PagoDAOHibernateJPA;
 import ttps.quecomemos.persistencia.dao.jpa.pedido.ItemPedidoDAOHibernateJPA;
 import ttps.quecomemos.persistencia.dao.jpa.pedido.PedidoDAOHibernateJPA;
 import ttps.quecomemos.persistencia.dao.jpa.sugerencia.SugerenciaDAOHibernateJPA;
+import ttps.quecomemos.persistencia.dao.jpa.usuarios.AdministradorDAOHibernateJPA;
+import ttps.quecomemos.persistencia.dao.jpa.usuarios.ClienteDAOHibernateJPA;
+import ttps.quecomemos.persistencia.dao.jpa.usuarios.ResponsableDeTurnoDAOHibernateJPA;
+import ttps.quecomemos.persistencia.dao.jpa.usuarios.UsuarioDAOHibernateJPA;
 
 public class FactoryDAO {
     // Usuario

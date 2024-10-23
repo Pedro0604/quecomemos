@@ -8,10 +8,6 @@ import java.util.List;
 @Entity
 public class Cliente extends Usuario {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
     @Column(unique = true, nullable = false)
     private String email;
 
