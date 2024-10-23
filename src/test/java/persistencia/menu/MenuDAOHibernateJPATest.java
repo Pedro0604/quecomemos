@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class MenuDAOHibernateJPATest {
     @Test
-    public void testGetByName() {
+    public void testGetByNameSuccessful() {
         MenuDAO menuDAO = FactoryDAO.getMenuDAO();
 
         Menu menu = new Menu();
@@ -29,6 +29,12 @@ public class MenuDAOHibernateJPATest {
             menuDAO.persist(menu);
         }
 
+        assertNotNull(menuDAO.getByName("Menu veggie"));
+    }
+
+    @Test
+    public void testGetByNameReturnsNullWhenNotFound() {
+        MenuDAO menuDAO = FactoryDAO.getMenuDAO();
         assertNotNull(menuDAO.getByName("Menu veggie"));
     }
 }

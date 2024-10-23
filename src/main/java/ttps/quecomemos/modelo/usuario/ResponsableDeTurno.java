@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 @Entity
 public class ResponsableDeTurno extends Usuario {
-
     @Column(nullable = false)
     private Turno turno;
 

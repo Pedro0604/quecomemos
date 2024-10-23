@@ -1,6 +1,5 @@
 package persistencia;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ttps.quecomemos.modelo.menu.Comida;
@@ -79,4 +78,10 @@ public class GenericDAOHibernateJPATest {
         assertNotNull(foundComida);
         assertEquals(comida.getId(), foundComida.getId());
     }
+
+    @Test
+    public void getEntityByIdReturnsNullIfNotFound() {
+        assertNull(dao.get(134232L));
+    }
+
 }
