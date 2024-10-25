@@ -39,6 +39,8 @@
    ```bash
    git clone https://github.com/Pedro0604/quecomemos
    ```
+   1.1 **Alternativa: Descargar .zip**
+    - Descargar el archivo en formato `.zip` desde GitHub en https://github.com/Pedro0604/quecomemos, descomprimilo en tu equipo, e importalo como proyecto maven en tu editor.
 2. **Configurar el SDK de Amazon Corretto:**
     - Asegúrate de tener instalado el **Amazon Corretto JDK** en la versión 17.
 
