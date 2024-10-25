@@ -46,7 +46,7 @@
     - Crear una base de datos en MySQL con el nombre `ttps-quecomemos`.
 
 4. **Configurar el archivo de persistencia:**
-    - Edita el archivo `persistence.xml` y ajusta las credenciales para conectarse a la base de datos.
+    - Para configurar el archivo `persistence.xml` y ajustar las credenciales para conectarse a la base de datos, debera copiar la estructura que se encuentra en 'persistence.example.xml' y pegarla en un archivo llamado 'persistence.xml' en la carpeta 'src/main/resources/META-INF', colocando sus credenciales.
 
 5. **Instalar dependencias:**
     - Ejecutar los comandos de instalación correspondientes para los frameworks utilizados, `mvn install` para dependencias de Maven en el backend.
