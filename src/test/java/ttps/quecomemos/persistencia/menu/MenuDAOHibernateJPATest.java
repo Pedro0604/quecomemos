@@ -1,4 +1,4 @@
-package persistencia.menu;
+package ttps.quecomemos.persistencia.menu;
 
 import org.junit.jupiter.api.Test;
 import ttps.quecomemos.modelo.menu.Comida;

@@ -1,8 +1,6 @@
-package modelo.menu;
+package ttps.quecomemos.modelo.menu;
 
 import org.junit.jupiter.api.Test;
-import ttps.quecomemos.modelo.menu.Menu;
-import ttps.quecomemos.modelo.menu.MenuDiario;
 
 import java.time.DayOfWeek;
 

@@ -1,10 +1,8 @@
-package modelo.pago;
+package ttps.quecomemos.modelo.pago;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import ttps.quecomemos.modelo.pago.MetodoPago;
-import ttps.quecomemos.modelo.pago.Pago;
 import ttps.quecomemos.modelo.pedido.Pedido;
 import ttps.quecomemos.modelo.usuario.Cliente;
 

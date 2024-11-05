@@ -1,8 +1,7 @@
-package modelo.pedido;
+package ttps.quecomemos.modelo.pedido;
 
 import org.junit.jupiter.api.Test;
 import ttps.quecomemos.modelo.menu.Comida;
-import ttps.quecomemos.modelo.pedido.ItemPedido;
 import ttps.quecomemos.modelo.menu.Preciable;
 import ttps.quecomemos.modelo.menu.TipoComida;
 

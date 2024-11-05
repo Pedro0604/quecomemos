@@ -1,4 +1,4 @@
-package persistencia.usuarios;
+package ttps.quecomemos.persistencia.usuarios;
 
 import static org.junit.jupiter.api.Assertions.*;
 

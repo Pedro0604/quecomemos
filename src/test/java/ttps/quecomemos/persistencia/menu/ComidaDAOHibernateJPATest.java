@@ -1,11 +1,10 @@
-package persistencia.menu;
+package ttps.quecomemos.persistencia.menu;
 
 import org.junit.jupiter.api.Test;
 import ttps.quecomemos.modelo.menu.Comida;
 import ttps.quecomemos.modelo.menu.TipoComida;
 import ttps.quecomemos.persistencia.dao.classes.FactoryDAO;
 import ttps.quecomemos.persistencia.dao.classes.menu.ComidaDAO;
-import ttps.quecomemos.persistencia.dao.classes.menu.MenuDAO;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
