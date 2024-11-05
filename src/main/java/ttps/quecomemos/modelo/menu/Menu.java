@@ -22,7 +22,7 @@ public class Menu extends Preciable {
             joinColumns = @JoinColumn(name = "menu_id"),
             inverseJoinColumns = @JoinColumn(name = "comida_id")
     )
-    private List<Comida> comidas = new ArrayList<>();
+    private List<Comida> comidas;
 
     @Setter
     @Column(nullable = false)
