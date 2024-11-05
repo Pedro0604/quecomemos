@@ -7,6 +7,8 @@ import jakarta.persistence.Enumerated;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -39,5 +41,10 @@ public class Comida extends Preciable {
             return comida.getNombre().equals(this.getNombre());
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), nombre, urlImagen, tipoComida, vegetariana, precio);
     }
 }

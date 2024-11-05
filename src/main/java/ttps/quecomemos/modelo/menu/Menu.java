@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -81,5 +82,10 @@ public class Menu extends Preciable {
             return menu.getNombre().equals(this.getNombre());
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), nombre, comidas, precio, vegetariano);
     }
 }
