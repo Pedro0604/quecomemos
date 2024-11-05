@@ -1,7 +1,9 @@
 package ttps.quecomemos.modelo.menu;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Preciable {
@@ -10,12 +12,4 @@ public abstract class Preciable {
     private Long id;
 
     public abstract double getPrecio();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

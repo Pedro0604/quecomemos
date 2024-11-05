@@ -1,14 +1,17 @@
 package ttps.quecomemos.modelo.pedido;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import ttps.quecomemos.modelo.menu.Preciable;
-import ttps.quecomemos.modelo.usuario.Cliente;
 import ttps.quecomemos.modelo.pago.Pago;
+import ttps.quecomemos.modelo.usuario.Cliente;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 public class Pedido {
     @Id
@@ -37,46 +40,6 @@ public class Pedido {
         this.items = new ArrayList<>();
         this.cliente = cliente;
         fecha = LocalDate.now();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<ItemPedido> getItems() {
-        return items;
-    }
-
-    public void setItems(List<ItemPedido> items) {
-        this.items = items;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
-    public Pago getPago() {
-        return pago;
-    }
-
-    public void setPago(Pago pago) {
-        this.pago = pago;
     }
 
     public void addItem(Preciable item) {

@@ -1,15 +1,21 @@
 package ttps.quecomemos.modelo.usuario;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ttps.quecomemos.modelo.pedido.Pedido;
 import ttps.quecomemos.modelo.sugerencia.Sugerencia;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
 @Entity
 public class Cliente extends Usuario {
-
+    @Getter
+    @Setter
     @Column(unique = true, nullable = false)
     private String email;
 
@@ -25,17 +31,4 @@ public class Cliente extends Usuario {
         this.pedidos = new ArrayList<>();
         this.sugerencias = new ArrayList<>();
     }
-
-    public Cliente() {
-        super();
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
 }

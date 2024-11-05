@@ -1,11 +1,16 @@
 package ttps.quecomemos.modelo.menu;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Data
 @Entity
 public class Menu extends Preciable {
     @Column(unique = true, nullable = false)
@@ -19,6 +24,7 @@ public class Menu extends Preciable {
     )
     private List<Comida> comidas = new ArrayList<>();
 
+    @Setter
     @Column(nullable = false)
     private double precio;
 
@@ -53,27 +59,11 @@ public class Menu extends Preciable {
         return this.getComidas().remove(comida);
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public List<Comida> getComidas() {
-        return comidas;
-    }
-
     public void setComidas(List<Comida> comidas) {
         if (this.vegetariano && comidas.stream().anyMatch(c -> !c.isVegetariana())) {
             throw new IllegalArgumentException("No se puede hacer un menu vegetariano con comidas no vegetarianas");
         }
         this.comidas = comidas;
-    }
-
-    public boolean isVegetariano() {
-        return vegetariano;
     }
 
     public void setVegetariano(boolean vegetariano) {
@@ -88,20 +78,11 @@ public class Menu extends Preciable {
         return precio;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-
     @Override
     public boolean equals(Object object) {
         if (object instanceof Menu menu) {
             return menu.getNombre().equals(this.getNombre());
         }
         return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return nombre.hashCode();
     }
 }

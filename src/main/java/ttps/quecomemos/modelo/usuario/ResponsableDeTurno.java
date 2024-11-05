@@ -1,7 +1,13 @@
 package ttps.quecomemos.modelo.usuario;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class ResponsableDeTurno extends Usuario {
     @Column(nullable = false)
@@ -11,17 +17,4 @@ public class ResponsableDeTurno extends Usuario {
         super(dni, clave, nombre, apellido, urlImagen);
         this.turno = turno;
     }
-
-    public ResponsableDeTurno() {
-        super();
-    }
-
-    public Turno getTurno() {
-        return turno;
-    }
-
-    public void setTurno(Turno turno) {
-        this.turno = turno;
-    }
-
 }

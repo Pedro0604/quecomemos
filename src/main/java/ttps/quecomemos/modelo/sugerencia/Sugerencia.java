@@ -1,10 +1,15 @@
 package ttps.quecomemos.modelo.sugerencia;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ttps.quecomemos.modelo.usuario.Cliente;
 
 import jakarta.persistence.*;
 import java.time.LocalTime;
 
+@Data
+@NoArgsConstructor
 @Entity
 public class Sugerencia {
     @Id
@@ -25,53 +30,10 @@ public class Sugerencia {
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
-    public Sugerencia() {
-    }
-
     public Sugerencia(String descripcion, TipoSugerencia tipo, Cliente cliente) {
         this.descripcion = descripcion;
         this.tipo = tipo;
         this.fecha = LocalTime.now();
-        this.cliente = cliente;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public TipoSugerencia getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoSugerencia tipo) {
-        this.tipo = tipo;
-    }
-
-    public LocalTime getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalTime fecha) {
-        this.fecha = fecha;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 }

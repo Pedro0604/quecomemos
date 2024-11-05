@@ -1,8 +1,14 @@
 package ttps.quecomemos.modelo.pago;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ttps.quecomemos.modelo.pedido.Pedido;
 
+
+@Data
+@NoArgsConstructor
 @Entity
 public class Pago {
     @Id
@@ -16,36 +22,8 @@ public class Pago {
     @Column(nullable = false)
     private MetodoPago metodo;
 
-
-    public Pago() {
-    }
-
     public Pago(Pedido pedido, MetodoPago metodo) {
         this.pedido = pedido;
-        this.metodo = metodo;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Pedido getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
-    }
-
-    public MetodoPago getMetodo() {
-        return metodo;
-    }
-
-    public void setMetodo(MetodoPago metodo) {
         this.metodo = metodo;
     }
 }
