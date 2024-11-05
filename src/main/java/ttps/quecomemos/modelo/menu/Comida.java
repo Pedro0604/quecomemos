@@ -1,9 +1,13 @@
 package ttps.quecomemos.modelo.menu;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Comida extends Preciable {
     @Column(unique = true, nullable = false)
@@ -20,27 +24,11 @@ public class Comida extends Preciable {
     @Column(nullable = false)
     private double precio;
 
-    public Comida() {
-    }
-
-    public Comida(String nombre, String urlImagen, TipoComida tipoComida, boolean vegetariana, double precio) {
-        this.nombre = nombre;
-        this.urlImagen = urlImagen;
-        this.tipoComida = tipoComida;
-        this.vegetariana = vegetariana;
-        this.precio = precio;
-    }
-
     @Override
     public boolean equals(Object object) {
         if (object instanceof Comida comida) {
             return comida.getNombre().equals(this.getNombre());
         }
         return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return nombre.hashCode();
     }
 }
