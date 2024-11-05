@@ -1,7 +1,6 @@
 package ttps.quecomemos.modelo.pago;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ttps.quecomemos.modelo.pedido.Pedido;

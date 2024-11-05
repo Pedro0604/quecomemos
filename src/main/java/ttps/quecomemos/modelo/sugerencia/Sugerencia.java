@@ -1,11 +1,10 @@
 package ttps.quecomemos.modelo.sugerencia;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ttps.quecomemos.modelo.usuario.Cliente;
 
-import jakarta.persistence.*;
 import java.time.LocalTime;
 
 @Data
@@ -16,7 +15,7 @@ public class Sugerencia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false)
     private String descripcion;
 
     @Enumerated(EnumType.STRING)

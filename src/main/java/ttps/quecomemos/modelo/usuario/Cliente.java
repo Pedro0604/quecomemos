@@ -1,7 +1,6 @@
 package ttps.quecomemos.modelo.usuario;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,11 +10,11 @@ import ttps.quecomemos.modelo.sugerencia.Sugerencia;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class Cliente extends Usuario {
-    @Getter
-    @Setter
     @Column(unique = true, nullable = false)
     private String email;
 
