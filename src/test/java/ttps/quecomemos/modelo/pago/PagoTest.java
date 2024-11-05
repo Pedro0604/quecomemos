@@ -1,10 +1,10 @@
 package ttps.quecomemos.modelo.pago;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
 import ttps.quecomemos.modelo.pedido.Pedido;
 import ttps.quecomemos.modelo.usuario.Cliente;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PagoTest {
 

@@ -5,7 +5,7 @@ import ttps.quecomemos.modelo.menu.Comida;
 import ttps.quecomemos.modelo.menu.Preciable;
 import ttps.quecomemos.modelo.menu.TipoComida;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ItemPedidoTest {
 

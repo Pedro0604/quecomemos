@@ -14,7 +14,7 @@ public class Pago {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(optional = false, mappedBy="pago")
+    @OneToOne(optional = false, mappedBy = "pago")
     private Pedido pedido;
 
     @Enumerated(EnumType.STRING)

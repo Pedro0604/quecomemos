@@ -1,14 +1,14 @@
 package ttps.quecomemos.modelo.pedido;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
 import ttps.quecomemos.modelo.menu.Comida;
 import ttps.quecomemos.modelo.menu.Preciable;
 import ttps.quecomemos.modelo.menu.TipoComida;
 import ttps.quecomemos.modelo.usuario.Cliente;
 
 import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PedidoTest {
 
