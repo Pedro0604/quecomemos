@@ -13,7 +13,9 @@ public class ClienteController {
     private final ClienteService clienteService;
 
     @Autowired
-    public ClienteController(ClienteService clienteService) { this.clienteService = clienteService; }
+    public ClienteController(ClienteService clienteService) {
+        this.clienteService = clienteService;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<Cliente> registerClient(@RequestBody Cliente cliente) {
@@ -25,7 +27,7 @@ public class ClienteController {
     public ResponseEntity<Cliente> editClient(@RequestBody Cliente cliente, @PathVariable Long id) {
         Cliente existingClient = (Cliente) clienteService.findById(id);
         if (existingClient != null) {
-            existingClient = (Cliente) clienteService.update(cliente);
+            existingClient = (Cliente) clienteService.update(cliente, id);
             return ResponseEntity.ok(existingClient);
         } else {
             return ResponseEntity.notFound().build();

@@ -19,7 +19,26 @@ public class MenuService extends GenericService<Menu> {
     }
 
     @Transactional(readOnly = true)
-    public Menu getByName(String nombre) {
+    public Menu findByName(String nombre) {
         return menuRepository.findByNombre(nombre);
+    }
+
+    @Transactional
+    @Override
+    public Menu save(Menu menu) {
+        if (this.findByName(menu.getNombre()) != null) {
+            throw new IllegalArgumentException("Ya existe un menú con ese nombre");
+        }
+        return menuRepository.save(menu);
+    }
+
+    @Transactional
+    @Override
+    public Menu update(Menu menu, Long id) {
+        Menu existingMenu = findById(id);
+        if (!menu.getNombre().equals(existingMenu.getNombre()) && this.findByName(menu.getNombre()) != null) {
+            throw new IllegalArgumentException("Ya existe un menú con ese nombre");
+        }
+        return menuRepository.save(menu);
     }
 }

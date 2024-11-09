@@ -26,14 +26,14 @@ public class ComidaService extends GenericService<Comida> {
 
     @Transactional
     @Override
-    public Comida update(Comida comida) {
+    public Comida update(Comida comida, Long id) {
         // Buscar la comida existente por ID
         Comida existingComida = this.findById(comida.getId());
-        if (existingComida ==null){
+        if (existingComida == null) {
             throw new RuntimeException();
         }
         // Guardar la comida actualizada
-        return super.update(existingComida);
+        return super.update(existingComida, existingComida.getId());
     }
 
 

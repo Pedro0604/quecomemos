@@ -1,9 +1,11 @@
 package ttps.quecomemos.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ttps.quecomemos.exception.EmptyListException;
 
 import java.util.List;
 
@@ -24,12 +26,21 @@ public abstract class GenericService<T> {
 
     @Transactional(readOnly = true)
     public List<T> findAll() {
-        return repository.findAll();
+        List<T> entities = repository.findAll();
+        if (entities.isEmpty()) {
+            throw new EmptyListException();
+        } else {
+            return entities;
+        }
     }
 
     @Transactional(readOnly = true)
     public T findById(Long id) {
-        return repository.findById(id).orElse(null);
+        return repository
+                .findById(id)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("No se encontró le " + this.getClass().getSimpleName().toLowerCase().replace("service", "") + " con id " + id)
+                );
     }
 
     @Transactional
@@ -39,6 +50,7 @@ public abstract class GenericService<T> {
 
     @Transactional
     public void deleteById(Long id) {
+        this.findById(id);
         repository.deleteById(id);
     }
 
@@ -48,7 +60,8 @@ public abstract class GenericService<T> {
     }
 
     @Transactional
-    public T update(T entity) {
+    public T update(T entity, Long id) {
+        this.findById(id);
         return repository.save(entity);
     }
 }

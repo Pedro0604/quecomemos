@@ -5,10 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ttps.quecomemos.modelo.menu.Comida;
 import ttps.quecomemos.service.menu.ComidaService;
+
 import java.util.List;
 
 @RestController
-@RequestMapping ("/api/comidas")
+@RequestMapping("/api/comidas")
 public class ComidaController {
 
     private final ComidaService comidaService;
@@ -30,9 +31,9 @@ public class ComidaController {
         return ResponseEntity.ok(newComida);
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<Comida> updateComida(@RequestBody Comida comida) {
-        Comida updatedComida = comidaService.update(comida);
+    @PostMapping("/{id}/update")
+    public ResponseEntity<Comida> updateComida(@RequestBody Comida comida, @PathVariable Long id) {
+        Comida updatedComida = comidaService.update(comida, id);
         return ResponseEntity.ok(updatedComida);
     }
 

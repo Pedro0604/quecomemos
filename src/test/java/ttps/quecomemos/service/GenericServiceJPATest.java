@@ -54,7 +54,7 @@ public class GenericServiceJPATest {
         Sugerencia sugerencia = this.getSugerencia();
         sugerencia = sugerenciaService.save(sugerencia);
         sugerencia.setDescripcion("pepe");
-        Sugerencia updatedSugerencia = sugerenciaService.update(sugerencia);
+        Sugerencia updatedSugerencia = sugerenciaService.update(sugerencia, sugerencia.getId());
 
         assertNotNull(updatedSugerencia);
         assertEquals("pepe", updatedSugerencia.getDescripcion());

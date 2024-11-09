@@ -27,7 +27,7 @@ public class MenuServiceTest {
     }
 
     @Test
-    public void testGetByNameSuccessful() {
+    public void testFindByNameSuccessful() {
         Menu menu = new Menu();
         menu.setNombre("Menu veggie");
         menu.setVegetariano(true);
@@ -40,11 +40,11 @@ public class MenuServiceTest {
         menu.addComida(comida);
         menuService.save(menu);
 
-        assertNotNull(menuService.getByName("Menu veggie"));
+        assertNotNull(menuService.findByName("Menu veggie"));
     }
 
     @Test
-    public void testGetByNameReturnsNullWhenNotFound() {
-        assertNull(menuService.getByName("Menu veggie"));
+    public void testFindByNameReturnsNullWhenNotFound() {
+        assertNull(menuService.findByName("Menu veggie"));
     }
 }

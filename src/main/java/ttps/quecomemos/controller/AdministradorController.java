@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ttps.quecomemos.modelo.usuario.Administrador;
-import ttps.quecomemos.modelo.usuario.Cliente;
 import ttps.quecomemos.service.usuario.AdministradorService;
 
 @RestController
@@ -28,7 +27,7 @@ public class AdministradorController {
     public ResponseEntity<Administrador> editAdmin(@RequestBody Administrador administrador, @PathVariable Long id) {
         Administrador existingAdmin = (Administrador) administradorService.findById(id);
         if (existingAdmin != null) {
-            existingAdmin = (Administrador) administradorService.update(administrador);
+            existingAdmin = (Administrador) administradorService.update(administrador, administrador.getId());
             return ResponseEntity.ok(existingAdmin);
         } else {
             return ResponseEntity.notFound().build();
