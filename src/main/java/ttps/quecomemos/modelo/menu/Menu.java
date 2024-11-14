@@ -3,10 +3,11 @@ package ttps.quecomemos.modelo.menu;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Setter;
+import ttps.quecomemos.exception.ComidaNoVegetarianaException;
+import ttps.quecomemos.exception.TipoComidaDuplicadoException;
+import ttps.quecomemos.exception.TipoComidaNoPermitidoException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Data
 @Entity
@@ -46,11 +47,21 @@ public class Menu extends Preciable {
         this.comidas = new ArrayList<>();
     }
 
+    // TODO - MODIFICAR LOS TESTS PARA QUE ANDEN CON LAS EXCEPCIONES (una vez hecho eso modificar para que devuelva void)
     public boolean addComida(Comida comida) {
-        if ((!this.vegetariano || comida.isVegetariana()) && comida.getTipoComida() != TipoComida.OTRO && this.getComidas().stream().noneMatch(c -> c.getTipoComida() == comida.getTipoComida())) {
-            return this.getComidas().add(comida);
+        if (this.vegetariano && !comida.isVegetariana()) {
+            throw new ComidaNoVegetarianaException("La comida '" + comida.getNombre() + "' no es vegetariana");
         }
-        return false;
+
+        if (comida.getTipoComida() == TipoComida.OTRO) {
+            throw new TipoComidaNoPermitidoException("El tipo de comida '" + TipoComida.OTRO + "' no está permitido dentro de un menú");
+        }
+
+        if (this.getComidas().stream().anyMatch(c -> c.getTipoComida() == comida.getTipoComida())) {
+            throw new TipoComidaDuplicadoException("El tipo de comida '" + comida.getTipoComida() + "' ya está presente en el menú");
+        }
+
+        return this.getComidas().add(comida);
     }
 
     public boolean removeComida(Comida comida) {
@@ -59,14 +70,27 @@ public class Menu extends Preciable {
 
     public void setComidas(List<Comida> comidas) {
         if (this.vegetariano && comidas.stream().anyMatch(c -> !c.isVegetariana())) {
-            throw new IllegalArgumentException("No se puede hacer un menu vegetariano con comidas no vegetarianas");
+            throw new ComidaNoVegetarianaException("Una de las comidas no es vegetariana");
         }
+
+        if (comidas.stream().anyMatch(c -> c.getTipoComida() == TipoComida.OTRO)) {
+            throw new TipoComidaNoPermitidoException("El tipo de comida '" + TipoComida.OTRO + "' no está permitido");
+        }
+
+        // Verificar que no haya tipos de comida duplicados
+        Set<TipoComida> tiposUnicos = new HashSet<>();
+        for (Comida comida : comidas) {
+            if (!tiposUnicos.add(comida.getTipoComida())) {
+                throw new TipoComidaDuplicadoException("El tipo de comida '" + comida.getTipoComida() + "' ya está presente en el menú");
+            }
+        }
+
         this.comidas = comidas;
     }
 
     public void setVegetariano(boolean vegetariano) {
         if (vegetariano && this.comidas.stream().anyMatch(c -> !c.isVegetariana())) {
-            throw new IllegalArgumentException("No se puede hacer un menu vegetariano con comidas no vegetarianas");
+            throw new ComidaNoVegetarianaException("Una de las comidas existentes en el menú no es vegetariana");
         }
         this.vegetariano = vegetariano;
     }

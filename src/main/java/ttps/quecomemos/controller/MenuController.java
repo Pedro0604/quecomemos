@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ttps.quecomemos.modelo.menu.Comida;
 import ttps.quecomemos.modelo.menu.Menu;
-import ttps.quecomemos.service.menu.ComidaService;
 import ttps.quecomemos.service.menu.MenuService;
 
 import java.util.List;
@@ -18,12 +17,10 @@ import java.util.List;
 public class MenuController {
 
     private final MenuService menuService;
-    private final ComidaService comidaService;
 
     @Autowired
-    public MenuController(MenuService menuService, ComidaService comidaService) {
+    public MenuController(MenuService menuService) {
         this.menuService = menuService;
-        this.comidaService = comidaService;
     }
 
     @GetMapping
@@ -58,12 +55,13 @@ public class MenuController {
         return ResponseEntity.ok(menuService.findById(id).getComidas());
     }
 
-    // TODO - MODIFICAR MENU PARA QUE LANCE DIFERENTES TIPOS DE EXCEPCION DE ACUERDO A LOS ERRORES QUE PUEDAN SURGIR AL AÑADIR UNA COMIDA
     @PostMapping("/{id}/comidas")
-    public ResponseEntity<Menu> addComida(@PathVariable Long id, @RequestBody Long comida_id) {
-        Menu menu = menuService.findById(id);
-        Comida comida = comidaService.findById(comida_id);
-        menu.addComida(comida);
-        return ResponseEntity.ok(menuService.update(menu, id));
+    public ResponseEntity<Menu> addComidas(@PathVariable Long id, @RequestBody List<Long> comidaIds) {
+        return ResponseEntity.ok(menuService.addComidas(id, comidaIds));
+    }
+
+    @DeleteMapping("/{id}/comidas")
+    public ResponseEntity<Menu> removeComidas(@PathVariable Long id, @RequestBody List<Long> comidaIds) {
+        return ResponseEntity.ok(menuService.removeComidas(id, comidaIds));
     }
 }

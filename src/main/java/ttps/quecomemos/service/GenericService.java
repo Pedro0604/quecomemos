@@ -14,6 +14,10 @@ public abstract class GenericService<T> {
 
     private final JpaRepository<T, Long> repository;
 
+    public String getName() {
+        return this.getClass().getSimpleName().toLowerCase().replace("service", "");
+    }
+
     @Autowired
     public GenericService(JpaRepository<T, Long> repository) {
         this.repository = repository;
@@ -34,12 +38,20 @@ public abstract class GenericService<T> {
         }
     }
 
+    public List<T> findAllByIds(List<Long> ids) {
+        List<T> entities = repository.findAllById(ids);
+        if (entities.size() != ids.size()) {
+            throw new EntityNotFoundException("Une o más " + this.getName() + " no fueron encontrades");
+        }
+        return entities;
+    }
+
     @Transactional(readOnly = true)
     public T findById(Long id) {
         return repository
                 .findById(id)
                 .orElseThrow(
-                        () -> new EntityNotFoundException("No se encontró le " + this.getClass().getSimpleName().toLowerCase().replace("service", "") + " con id " + id)
+                        () -> new EntityNotFoundException("No se encontró le " + this.getName() + " con id " + id)
                 );
     }
 
