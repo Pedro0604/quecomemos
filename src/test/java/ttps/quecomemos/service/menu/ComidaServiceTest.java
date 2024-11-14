@@ -28,11 +28,11 @@ public class ComidaServiceTest {
         Comida comida = new Comida("Comida carnivora", null, TipoComida.POSTRE, false, 1222);
         comidaService.save(comida);
 
-        assertNotNull(comidaService.getByName("Comida carnivora"));
+        assertNotNull(comidaService.findByName("Comida carnivora"));
     }
 
     @Test
     public void testGetByNameReturnsNullWhenNotFound() {
-        assertNull(comidaService.getByName("Comida carnivora"));
+        assertNull(comidaService.findByName("Comida carnivora"));
     }
 }

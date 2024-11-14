@@ -38,7 +38,7 @@ public class ComidaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Comida> editComida(@RequestBody Comida comida,  @PathVariable Long id) {
-
+        comida.setId(id);
         return ResponseEntity.ok(comidaService.update(comida, id));
     }
 
