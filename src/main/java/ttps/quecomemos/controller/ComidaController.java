@@ -2,6 +2,7 @@ package ttps.quecomemos.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ttps.quecomemos.modelo.menu.Comida;
@@ -10,7 +11,7 @@ import ttps.quecomemos.service.menu.ComidaService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/comidas")
+@RequestMapping(path = "/comidas", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ComidaController {
 
     private final ComidaService comidaService;
