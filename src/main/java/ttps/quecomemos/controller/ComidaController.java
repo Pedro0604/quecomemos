@@ -1,6 +1,7 @@
 package ttps.quecomemos.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ttps.quecomemos.modelo.menu.Comida;
@@ -21,20 +22,23 @@ public class ComidaController {
 
     @GetMapping // Maneja las solicitudes GET en /api/comidas
     public ResponseEntity<List<Comida>> getAllComidas() {
-        List<Comida> comidas = comidaService.findAll();
-        return ResponseEntity.ok(comidas);
+        return ResponseEntity.ok(comidaService.findAll());
     }
 
-    @PostMapping("/create")
+    @GetMapping("/{id}")
+    public ResponseEntity<Comida> getComida(@PathVariable Long id) {
+        return ResponseEntity.ok(comidaService.findById(id));
+    }
+
+    @PostMapping
     public ResponseEntity<Comida> createComida(@RequestBody Comida comida) {
-        Comida newComida = comidaService.save(comida);
-        return ResponseEntity.ok(newComida);
+        return ResponseEntity.status(HttpStatus.CREATED).body(comidaService.save(comida));
     }
 
-    @PostMapping("/{id}/update")
-    public ResponseEntity<Comida> updateComida(@RequestBody Comida comida, @PathVariable Long id) {
-        Comida updatedComida = comidaService.update(comida, id);
-        return ResponseEntity.ok(updatedComida);
+    @PutMapping("/{id}")
+    public ResponseEntity<Comida> editComida(@RequestBody Comida comida,  @PathVariable Long id) {
+
+        return ResponseEntity.ok(comidaService.update(comida, id));
     }
 
 

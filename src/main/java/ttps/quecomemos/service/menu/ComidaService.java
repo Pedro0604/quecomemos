@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ttps.quecomemos.modelo.menu.Comida;
+import ttps.quecomemos.modelo.menu.Menu;
 import ttps.quecomemos.repository.menu.ComidaRepository;
 import ttps.quecomemos.service.GenericService;
 
@@ -18,22 +19,22 @@ public class ComidaService extends GenericService<Comida> {
         this.comidaRepository = comidaRepository;
     }
 
+    @Transactional
+    @Override
+    public Comida save(Comida comida) {
+        return comidaRepository.save(comida);
+    }
+
     @Transactional(readOnly = true)
     public Comida getByName(String nombre) {
         return comidaRepository.findByNombre(nombre);
     }
 
-
     @Transactional
     @Override
     public Comida update(Comida comida, Long id) {
-        // Buscar la comida existente por ID
-        Comida existingComida = this.findById(comida.getId());
-        if (existingComida == null) {
-            throw new RuntimeException();
-        }
-        // Guardar la comida actualizada
-        return super.update(existingComida, existingComida.getId());
+        Comida existingComida = findById(id);
+        return comidaRepository.save(existingComida);
     }
 
 
