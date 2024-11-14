@@ -22,8 +22,28 @@ public class ClienteService extends UsuarioService<Cliente> {
         return clienteRepository.findByEmail(email);
     }
 
-    @Transactional(readOnly = true)
-    public boolean isClienteExist(Cliente cliente) {
-        return getByEmail(cliente.getEmail()) != null;
+    @Transactional
+    public Cliente save(Cliente cliente) {
+        if (this.getByEmail(cliente.getEmail()) != null) {
+            throw new IllegalArgumentException("Ya existe un cliente con ese email");
+        } else {
+            if (this.getByDni(cliente.getDni()) != null) {
+                throw new IllegalArgumentException("Ya existe un cliente con ese DNI");
+            }
+        }
+        return clienteRepository.save(cliente);
+    }
+
+    @Transactional
+    public Cliente update(Cliente cliente, Long id) {
+        Cliente existingClient = (Cliente) findById(id);
+        if (!cliente.getEmail().equals(existingClient.getEmail()) && this.getByEmail(cliente.getEmail()) != null) {
+            throw new IllegalArgumentException("Ya existe un cliente con ese email");
+        } else {
+            if (cliente.getDni() != existingClient.getDni() && this.getByDni(cliente.getDni()) != null) {
+                throw new IllegalArgumentException("Ya existe un cliente con ese DNI");
+            }
+        }
+        return clienteRepository.save(cliente);
     }
 }

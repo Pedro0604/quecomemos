@@ -8,13 +8,28 @@ import ttps.quecomemos.repository.usuario.ResponsableDeTurnoRepository;
 
 @Service
 public class ResponsableDeTurnoService extends UsuarioService<ResponsableDeTurno> {
+    private final ResponsableDeTurnoRepository responsableDeTurnoRepository;
+
     @Autowired
     public ResponsableDeTurnoService(ResponsableDeTurnoRepository responsableDeTurnoRepository) {
         super(responsableDeTurnoRepository);
+        this.responsableDeTurnoRepository = responsableDeTurnoRepository;
     }
 
-    @Transactional(readOnly = true)
-    public boolean isResponsableExist(ResponsableDeTurno responsable) {
-        return getByDni(responsable.getDni()) != null;
+    @Transactional
+    public ResponsableDeTurno save(ResponsableDeTurno responsable) {
+        if (this.getByDni(responsable.getDni()) != null) {
+            throw new IllegalArgumentException("Ya existe un responsable con ese DNI");
+        }
+        return responsableDeTurnoRepository.save(responsable);
+    }
+
+    @Transactional
+    public ResponsableDeTurno update(ResponsableDeTurno responsable, Long id) {
+        ResponsableDeTurno existingResponsable = (ResponsableDeTurno) findById(id);
+        if (responsable.getDni() != existingResponsable.getDni() && this.getByDni(responsable.getDni()) != null) {
+            throw new IllegalArgumentException("Ya existe un responsable con ese DNI");
+        }
+        return responsableDeTurnoRepository.save(responsable);
     }
 }

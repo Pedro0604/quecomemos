@@ -8,13 +8,28 @@ import ttps.quecomemos.repository.usuario.AdministradorRepository;
 
 @Service
 public class AdministradorService extends UsuarioService<Administrador> {
+    private final AdministradorRepository administradorRepository;
+
     @Autowired
     public AdministradorService(AdministradorRepository administradorRepository) {
         super(administradorRepository);
+        this.administradorRepository = administradorRepository;
     }
 
-    @Transactional(readOnly = true)
-    public boolean isAdministradorExist(Administrador administrador) {
-        return getByDni(administrador.getDni()) != null;
+    @Transactional
+    public Administrador save(Administrador administrador) {
+        if (this.getByDni(administrador.getDni()) != null) {
+            throw new IllegalArgumentException("Ya existe un administrador con ese DNI");
+        }
+        return administradorRepository.save(administrador);
+    }
+
+    @Transactional
+    public Administrador update(Administrador administrador, Long id) {
+        Administrador existingAdmin = (Administrador) findById(id);
+        if (administrador.getDni() != existingAdmin.getDni() && this.getByDni(administrador.getDni()) != null) {
+            throw new IllegalArgumentException("Ya existe un administrador con ese DNI");
+        }
+        return administradorRepository.save(administrador);
     }
 }

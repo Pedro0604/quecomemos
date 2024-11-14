@@ -8,7 +8,7 @@ import ttps.quecomemos.modelo.usuario.ResponsableDeTurno;
 import ttps.quecomemos.service.usuario.ResponsableDeTurnoService;
 
 @RestController
-@RequestMapping("/api/responsables") // URL base para el controlador
+@RequestMapping("/responsables") // URL base para el controlador
 public class ResponsableDeTurnoController {
 
     private final ResponsableDeTurnoService responsableDeTurnoService;
@@ -20,31 +20,13 @@ public class ResponsableDeTurnoController {
 
     @PostMapping
     public ResponseEntity<ResponsableDeTurno> registerResponsable(@RequestBody ResponsableDeTurno responsable) {
-        if (responsableDeTurnoService.isResponsableExist(responsable)) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-
-        responsableDeTurnoService.save(responsable);
-        return new ResponseEntity<ResponsableDeTurno>(HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responsableDeTurnoService.save(responsable));
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ResponsableDeTurno> editResponsable(@RequestBody ResponsableDeTurno responsable, @PathVariable("id") Long id) {
-        ResponsableDeTurno currentResponsable = (ResponsableDeTurno) responsableDeTurnoService.findById(id);
-
-        if (currentResponsable == null) {
-            return new ResponseEntity<ResponsableDeTurno>(HttpStatus.NOT_FOUND);
-        }
-
-        currentResponsable.setDni(responsable.getDni());
-        currentResponsable.setNombre(responsable.getNombre());
-        currentResponsable.setApellido(responsable.getApellido());
-        currentResponsable.setUrlImagen(responsable.getUrlImagen());
-        currentResponsable.setTurno(responsable.getTurno());
-        currentResponsable.setClave(responsable.getClave());
-
-        responsableDeTurnoService.update(currentResponsable, id);
-        return new ResponseEntity<ResponsableDeTurno>(currentResponsable, HttpStatus.OK);
+        responsable.setId(id);
+        return ResponseEntity.ok(responsableDeTurnoService.update(responsable, id));
     }
 
 }
