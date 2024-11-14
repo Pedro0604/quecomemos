@@ -1,6 +1,7 @@
 package ttps.quecomemos.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ttps.quecomemos.modelo.usuario.ResponsableDeTurno;
@@ -17,21 +18,33 @@ public class ResponsableDeTurnoController {
         this.responsableDeTurnoService = responsableDeTurnoService;
     }
 
-    @PostMapping("/register")
+    @PostMapping
     public ResponseEntity<ResponsableDeTurno> registerResponsable(@RequestBody ResponsableDeTurno responsable) {
-        ResponsableDeTurno newResponsable = (ResponsableDeTurno) responsableDeTurnoService.save(responsable);
-        return ResponseEntity.ok(newResponsable);
+        if (responsableDeTurnoService.isResponsableExist(responsable)) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        responsableDeTurnoService.save(responsable);
+        return new ResponseEntity<ResponsableDeTurno>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/edit/{id}")
-    public ResponseEntity<ResponsableDeTurno> editResponsable(@RequestBody ResponsableDeTurno responsable, @PathVariable Long id) {
-        ResponsableDeTurno existingResponsable = (ResponsableDeTurno) responsableDeTurnoService.findById(id);
-        if (existingResponsable != null) {
-            existingResponsable = (ResponsableDeTurno) responsableDeTurnoService.update(responsable, id);
-            return ResponseEntity.ok(existingResponsable);
-        } else {
-            return ResponseEntity.notFound().build();
+    @PostMapping("/{id}")
+    public ResponseEntity<ResponsableDeTurno> editResponsable(@RequestBody ResponsableDeTurno responsable, @PathVariable("id") Long id) {
+        ResponsableDeTurno currentResponsable = (ResponsableDeTurno) responsableDeTurnoService.findById(id);
+
+        if (currentResponsable == null) {
+            return new ResponseEntity<ResponsableDeTurno>(HttpStatus.NOT_FOUND);
         }
+
+        currentResponsable.setDni(responsable.getDni());
+        currentResponsable.setNombre(responsable.getNombre());
+        currentResponsable.setApellido(responsable.getApellido());
+        currentResponsable.setUrlImagen(responsable.getUrlImagen());
+        currentResponsable.setTurno(responsable.getTurno());
+        currentResponsable.setClave(responsable.getClave());
+
+        responsableDeTurnoService.update(currentResponsable, id);
+        return new ResponseEntity<ResponsableDeTurno>(currentResponsable, HttpStatus.OK);
     }
 
 }

@@ -1,6 +1,7 @@
 package ttps.quecomemos.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ttps.quecomemos.modelo.usuario.Cliente;
@@ -17,21 +18,33 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    @PostMapping("/register")
+    @PostMapping
     public ResponseEntity<Cliente> registerClient(@RequestBody Cliente cliente) {
-        Cliente newClient = (Cliente) clienteService.save(cliente);
-        return ResponseEntity.ok(newClient);
+        if (clienteService.isClienteExist(cliente)) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        clienteService.save(cliente);
+        return new ResponseEntity<Cliente>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/edit/{id}")
-    public ResponseEntity<Cliente> editClient(@RequestBody Cliente cliente, @PathVariable Long id) {
-        Cliente existingClient = (Cliente) clienteService.findById(id);
-        if (existingClient != null) {
-            existingClient = (Cliente) clienteService.update(cliente, id);
-            return ResponseEntity.ok(existingClient);
-        } else {
-            return ResponseEntity.notFound().build();
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> updateClient(@RequestBody Cliente cliente, @PathVariable("id") long id) {
+        Cliente currentClient = (Cliente) clienteService.findById(id);
+
+        if (currentClient == null) {
+            return new ResponseEntity<Cliente>(HttpStatus.NOT_FOUND);
         }
+
+        currentClient.setDni(cliente.getDni());
+        currentClient.setNombre(cliente.getNombre());
+        currentClient.setApellido(cliente.getApellido());
+        currentClient.setEmail(cliente.getEmail());
+        currentClient.setUrlImagen(cliente.getUrlImagen());
+        currentClient.setClave(cliente.getClave());
+
+        clienteService.update(currentClient, id);
+        return new ResponseEntity<Cliente>(currentClient, HttpStatus.OK);
     }
 
 }

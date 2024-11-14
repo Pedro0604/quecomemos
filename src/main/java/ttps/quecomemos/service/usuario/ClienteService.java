@@ -21,4 +21,9 @@ public class ClienteService extends UsuarioService<Cliente> {
     public Cliente getByEmail(String email) {
         return clienteRepository.findByEmail(email);
     }
+
+    @Transactional(readOnly = true)
+    public boolean isClienteExist(Cliente cliente) {
+        return getByEmail(cliente.getEmail()) != null;
+    }
 }
