@@ -23,4 +23,20 @@ public abstract class UsuarioService<U extends Usuario> extends GenericService<U
     public U getByDni(int dni) {
         return usuarioRepository.findByDni(dni);
     }
+
+    @Transactional
+    public long autenticar(int dni, String clave) {
+        Usuario usuario = getByDni(dni);
+
+        if (usuario == null) {
+            return -1;
+        }
+
+        if (usuario.getClave().equals(clave)) {
+            return usuario.getId();
+        } else {
+            return -1;
+        }
+    }
+
 }
