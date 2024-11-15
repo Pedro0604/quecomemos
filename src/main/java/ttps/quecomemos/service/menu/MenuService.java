@@ -3,6 +3,8 @@ package ttps.quecomemos.service.menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ttps.quecomemos.dto.MenuRequest;
+import ttps.quecomemos.exception.MenuSinComidasException;
 import ttps.quecomemos.modelo.menu.Comida;
 import ttps.quecomemos.modelo.menu.Menu;
 import ttps.quecomemos.repository.menu.MenuRepository;
@@ -34,6 +36,23 @@ public class MenuService extends GenericService<Menu> {
         if (this.findByName(menu.getNombre()) != null) {
             throw new IllegalArgumentException("Ya existe un menú con ese nombre");
         }
+        if (menu.getComidas().isEmpty()) {
+            throw new MenuSinComidasException();
+        }
+        return menuRepository.save(menu);
+    }
+
+    @Transactional
+    public Menu saveMenuRequest(MenuRequest menuRequest) {
+        Menu menu = new Menu(menuRequest);
+        if (this.findByName(menu.getNombre()) != null) {
+            throw new IllegalArgumentException("Ya existe un menú con ese nombre");
+        }
+        List<Comida> comidas = comidaService.findAllByIds(menuRequest.getComidaIds());
+        if (comidas.isEmpty()) {
+            throw new MenuSinComidasException();
+        }
+        comidas.forEach(menu::addComida);
         return menuRepository.save(menu);
     }
 
@@ -44,22 +63,26 @@ public class MenuService extends GenericService<Menu> {
         if (!menu.getNombre().equals(existingMenu.getNombre()) && this.findByName(menu.getNombre()) != null) {
             throw new IllegalArgumentException("Ya existe un menú con ese nombre");
         }
+        if (menu.getComidas().isEmpty()) {
+            throw new MenuSinComidasException();
+        }
+        menu.setId(id);
         return menuRepository.save(menu);
     }
 
     @Transactional
-    public Menu addComidas(Long menuId, List<Long> comidaIds) {
-        Menu menu = findById(menuId);
-        List<Comida> comidas = comidaService.findAllByIds(comidaIds);
+    public Menu updateMenuRequest(MenuRequest menuRequest, Long id) {
+        Menu existingMenu = findById(id);
+        Menu menu = new Menu(menuRequest);
+        if (!menu.getNombre().equals(existingMenu.getNombre()) && this.findByName(menu.getNombre()) != null) {
+            throw new IllegalArgumentException("Ya existe un menú con ese nombre");
+        }
+        List<Comida> comidas = comidaService.findAllByIds(menuRequest.getComidaIds());
+        if (comidas.isEmpty()) {
+            throw new MenuSinComidasException();
+        }
         comidas.forEach(menu::addComida);
-        return menuRepository.save(menu);
-    }
-
-    @Transactional
-    public Menu removeComidas(Long menuId, List<Long> comidaIds) {
-        Menu menu = findById(menuId);
-        List<Comida> comidas = comidaService.findAllByIds(comidaIds);
-        comidas.forEach(menu::removeComida);
+        menu.setId(id);
         return menuRepository.save(menu);
     }
 }

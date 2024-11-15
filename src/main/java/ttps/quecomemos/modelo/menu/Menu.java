@@ -3,6 +3,7 @@ package ttps.quecomemos.modelo.menu;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Setter;
+import ttps.quecomemos.dto.MenuRequest;
 import ttps.quecomemos.exception.ComidaNoVegetarianaException;
 import ttps.quecomemos.exception.TipoComidaDuplicadoException;
 import ttps.quecomemos.exception.TipoComidaNoPermitidoException;
@@ -44,6 +45,13 @@ public class Menu extends Preciable {
         this.nombre = nombre;
         this.precio = precio;
         this.vegetariano = vegetariano;
+        this.comidas = new ArrayList<>();
+    }
+
+    public Menu(MenuRequest menuRequest) {
+        this.nombre = menuRequest.getNombre();
+        this.precio = menuRequest.getPrecio();
+        this.vegetariano = menuRequest.isVegetariano();
         this.comidas = new ArrayList<>();
     }
 

@@ -5,10 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ttps.quecomemos.exception.ComidaNoVegetarianaException;
-import ttps.quecomemos.exception.EmptyListException;
-import ttps.quecomemos.exception.TipoComidaDuplicadoException;
-import ttps.quecomemos.exception.TipoComidaNoPermitidoException;
+import ttps.quecomemos.exception.*;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -40,6 +37,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(TipoComidaDuplicadoException.class)
     public ResponseEntity<String> handleTipoComidaDuplicadoException(TipoComidaDuplicadoException e) {
         return new ResponseEntity<>(getFormatedMessage("Error: Tipo de comida ya presente en el menú", e), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MenuSinComidasException.class)
+    public ResponseEntity<String> handleMenuSinComidasException() {
+        return new ResponseEntity<>("Error: Un menú debe contener al menos una comida", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(EmptyListException.class)
