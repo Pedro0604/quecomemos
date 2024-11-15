@@ -1,5 +1,6 @@
 package ttps.quecomemos.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,7 @@ public class GenericServiceJPATest {
         sugerenciaService.save(sugerencia);
         assertNotNull(sugerenciaService.findById(sugerencia.getId()));
         sugerenciaService.delete(sugerencia);
-        assertNull(sugerenciaService.findById(sugerencia.getId()));
+        assertThrows(EntityNotFoundException.class, () -> sugerenciaService.findById(sugerencia.getId()));
     }
 
     @Test
@@ -76,7 +77,7 @@ public class GenericServiceJPATest {
         sugerenciaService.save(sugerencia);
         assertNotNull(sugerenciaService.findById(sugerencia.getId()));
         sugerenciaService.deleteById(sugerencia.getId());
-        assertNull(sugerenciaService.findById(sugerencia.getId()));
+        assertThrows(EntityNotFoundException.class, () -> sugerenciaService.findById(sugerencia.getId()));
     }
 
     @Test
@@ -114,6 +115,6 @@ public class GenericServiceJPATest {
 
     @Test
     public void getEntityByIdReturnsNullIfNotFound() {
-        assertNull(sugerenciaService.findById(134232L));
+        assertThrows(EntityNotFoundException.class, () -> sugerenciaService.findById(134232L));
     }
 }

@@ -55,8 +55,7 @@ public class Menu extends Preciable {
         this.comidas = new ArrayList<>();
     }
 
-    // TODO - MODIFICAR LOS TESTS PARA QUE ANDEN CON LAS EXCEPCIONES (una vez hecho eso modificar para que devuelva void)
-    public boolean addComida(Comida comida) {
+    public void addComida(Comida comida) {
         if (this.vegetariano && !comida.isVegetariana()) {
             throw new ComidaNoVegetarianaException("La comida '" + comida.getNombre() + "' no es vegetariana");
         }
@@ -69,7 +68,7 @@ public class Menu extends Preciable {
             throw new TipoComidaDuplicadoException("El tipo de comida '" + comida.getTipoComida() + "' ya está presente en el menú");
         }
 
-        return this.getComidas().add(comida);
+        this.getComidas().add(comida);
     }
 
     public boolean removeComida(Comida comida) {
