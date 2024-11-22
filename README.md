@@ -33,6 +33,7 @@
 4. [Dependencias](#dependencias)
 5. [Contribuciones](#contribuciones)
 6. [Licencia](#licencia)
+7. [Pruebas](#pruebas)
 
 ### Instalación
 1. **Clonar el repositorio:**
@@ -64,3 +65,6 @@
 - **Java**: Amazon Corretto 17.
 - **MySQL**: Base de datos.
 - **Maven**: Gestor de dependencias.
+
+### Pruebas
+- **Postman**: Se pueden realizar pruebas de los endpoints de la API utilizando Postman. Se adjunta una colección de Postman junto al proyecto.
