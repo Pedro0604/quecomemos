@@ -10,6 +10,7 @@ import ttps.quecomemos.modelo.usuario.CredencialAuth;
 import ttps.quecomemos.modelo.usuario.ResponsableDeTurno;
 import ttps.quecomemos.service.usuario.ResponsableDeTurnoService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/responsables") // URL base para el controlador
 public class ResponsableDeTurnoController {

@@ -10,6 +10,7 @@ import ttps.quecomemos.service.menu.ComidaService;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(path = "/comidas", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ComidaController {

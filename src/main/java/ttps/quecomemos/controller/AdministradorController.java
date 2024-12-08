@@ -9,6 +9,7 @@ import ttps.quecomemos.modelo.usuario.Administrador;
 import ttps.quecomemos.modelo.usuario.CredencialAuth;
 import ttps.quecomemos.service.usuario.AdministradorService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/administradores") // URL base para el controlador
 public class AdministradorController {

@@ -12,6 +12,7 @@ import ttps.quecomemos.service.menu.MenuService;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(path = "/menus", produces = MediaType.APPLICATION_JSON_VALUE)
 

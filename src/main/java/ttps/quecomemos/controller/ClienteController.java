@@ -10,6 +10,7 @@ import ttps.quecomemos.modelo.usuario.Cliente;
 import ttps.quecomemos.modelo.usuario.CredencialAuth;
 import ttps.quecomemos.service.usuario.ClienteService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/clientes") // URL base para el controlador
 public class ClienteController {
