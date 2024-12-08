@@ -1,38 +1,38 @@
 package ttps.quecomemos.modelo.menu;
 
-public class Comida implements Preciable {
-    private String nombre, urlImagen;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Objects;
+
+@Data
+@NoArgsConstructor
+@Entity
+public class Comida extends Preciable {
+    @Column(unique = true, nullable = false)
+    private String nombre;
+
+    private String urlImagen;
+
+    @Enumerated(EnumType.STRING)
     private TipoComida tipoComida;
-    private boolean esVegetariana;
+
+    @Column(nullable = false)
+    private boolean vegetariana;
+
+    @Column(nullable = false)
     private double precio;
 
-    public Comida(String nombre, String urlImagen, TipoComida tipoComida, boolean esVegetariana, double precio) {
+    public Comida(String nombre, String urlImagen, TipoComida tipoComida, boolean vegetariana, double precio) {
         this.nombre = nombre;
         this.urlImagen = urlImagen;
         this.tipoComida = tipoComida;
-        this.esVegetariana = esVegetariana;
+        this.vegetariana = vegetariana;
         this.precio = precio;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getUrlImagen() {
-        return urlImagen;
-    }
-
-    public TipoComida getTipoComida() {
-        return tipoComida;
-    }
-
-    public boolean esVegetariana() {
-        return esVegetariana;
-    }
-
-    @Override
-    public double getPrecio() {
-        return precio;
     }
 
     @Override
@@ -41,5 +41,10 @@ public class Comida implements Preciable {
             return comida.getNombre().equals(this.getNombre());
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), nombre, urlImagen, tipoComida, vegetariana, precio);
     }
 }

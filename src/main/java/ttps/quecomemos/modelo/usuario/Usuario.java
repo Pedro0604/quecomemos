@@ -1,9 +1,32 @@
 package ttps.quecomemos.modelo.usuario;
 
-public abstract class Usuario {
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(unique = true, nullable = false)
     private int dni;
-    private String clave, nombre, apellido, urlImagen;
+
+    @Column(nullable = false)
+    private String clave;
+
+    @Column(nullable = false)
+    private String nombre;
+
+    @Column(nullable = false)
+    private String apellido;
+
+    @Column(nullable = false)
+    private String urlImagen;
 
     public Usuario(int dni, String clave, String nombre, String apellido, String urlImagen) {
         this.dni = dni;
@@ -11,25 +34,5 @@ public abstract class Usuario {
         this.nombre = nombre;
         this.apellido = apellido;
         this.urlImagen = urlImagen;
-    }
-
-    public int getDni() {
-        return this.dni;
-    }
-
-    public String getClave() {
-        return this.clave;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public String getUrlImagen() {
-        return urlImagen;
     }
 }
