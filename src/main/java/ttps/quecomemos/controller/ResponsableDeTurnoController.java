@@ -10,7 +10,12 @@ import ttps.quecomemos.modelo.usuario.CredencialAuth;
 import ttps.quecomemos.modelo.usuario.ResponsableDeTurno;
 import ttps.quecomemos.service.usuario.ResponsableDeTurnoService;
 
-@CrossOrigin
+@CrossOrigin(
+        origins = "http://localhost:4200",
+        allowedHeaders = {"Authorization", "Content-Type"},
+        exposedHeaders = {"Authorization"},
+        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}
+)
 @RestController
 @RequestMapping("/responsables") // URL base para el controlador
 public class ResponsableDeTurnoController {
@@ -41,9 +46,9 @@ public class ResponsableDeTurnoController {
             HttpHeaders headers = new HttpHeaders();
             headers.add("Authorization", token);
 
-            return new ResponseEntity<>(headers, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(headers, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 

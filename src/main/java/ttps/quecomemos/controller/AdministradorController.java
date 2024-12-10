@@ -9,7 +9,12 @@ import ttps.quecomemos.modelo.usuario.Administrador;
 import ttps.quecomemos.modelo.usuario.CredencialAuth;
 import ttps.quecomemos.service.usuario.AdministradorService;
 
-@CrossOrigin
+@CrossOrigin(
+        origins = "http://localhost:4200",
+        allowedHeaders = {"Authorization", "Content-Type"},
+        exposedHeaders = {"Authorization"},
+        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}
+)
 @RestController
 @RequestMapping("/administradores") // URL base para el controlador
 public class AdministradorController {
@@ -42,7 +47,7 @@ public class AdministradorController {
 
             return new ResponseEntity<>(headers, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 
