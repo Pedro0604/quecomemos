@@ -12,7 +12,7 @@ import static io.jsonwebtoken.Jwts.*;
 
 @Component
 public class JwtUtil {
-    private final Key SECRET_KEY = Keys.hmacShaKeyFor("miClaveSecretaDeAlMenos32Caracteres".getBytes());
+    private final Key SECRET_KEY = Keys.hmacShaKeyFor("miClaveSecretaParaTtpsQuecomemos".getBytes());
 
     public String generateToken(String subject) {
         return builder()
