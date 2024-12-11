@@ -9,6 +9,7 @@ import ttps.quecomemos.modelo.usuario.Administrador;
 import ttps.quecomemos.modelo.usuario.Cliente;
 import ttps.quecomemos.modelo.usuario.CredencialAuth;
 import ttps.quecomemos.service.usuario.ClienteService;
+import ttps.quecomemos.utils.JwtUtil;
 
 @CrossOrigin(
         origins = "http://localhost:4200",
@@ -21,6 +22,7 @@ import ttps.quecomemos.service.usuario.ClienteService;
 public class ClienteController {
 
     private final ClienteService clienteService;
+    private final JwtUtil jwtUtil = new JwtUtil();
 
     @Autowired
     public ClienteController(ClienteService clienteService) {
@@ -41,11 +43,10 @@ public class ClienteController {
     @PostMapping("/autenticacion")
     public ResponseEntity<Administrador> authenticateAdmin(@RequestBody CredencialAuth credenciales) {
         Long clienteId = clienteService.autenticar(credenciales.getDni(), credenciales.getClave());
-        if (clienteId.intValue() != -1) {
-            String token = clienteId + "123456";
+        if (clienteId != -1) {
+            String token = jwtUtil.generateToken(clienteId.toString());
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Authorization", token);
-
+            headers.add("Authorization", "Bearer " + token);
             return new ResponseEntity<>(headers, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.OK);
