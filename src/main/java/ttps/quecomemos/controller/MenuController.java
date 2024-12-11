@@ -9,6 +9,7 @@ import ttps.quecomemos.dto.MenuRequest;
 import ttps.quecomemos.modelo.menu.Comida;
 import ttps.quecomemos.modelo.menu.Menu;
 import ttps.quecomemos.service.menu.MenuService;
+import ttps.quecomemos.utils.JwtUtil;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import java.util.List;
 public class MenuController {
 
     private final MenuService menuService;
+    private final JwtUtil jwtUtil = new JwtUtil();
 
     @Autowired
     public MenuController(MenuService menuService) {
@@ -26,33 +28,57 @@ public class MenuController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Menu>> getAllMenus() {
-        return ResponseEntity.ok(menuService.findAll());
+    public ResponseEntity<List<Menu>> getAllMenus(@RequestHeader("Authorization") String token) {
+        if (token != null && jwtUtil.validateToken(token.replace("Bearer ", ""))) {
+            return ResponseEntity.ok(menuService.findAll());
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Menu> getMenu(@PathVariable Long id) {
-        return ResponseEntity.ok(menuService.findById(id));
+    public ResponseEntity<Menu> getMenu(@PathVariable Long id, @RequestHeader("Authorization") String token) {
+        if (token != null && jwtUtil.validateToken(token.replace("Bearer ", ""))) {
+            return ResponseEntity.ok(menuService.findById(id));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @PostMapping
-    public ResponseEntity<Menu> createMenu(@RequestBody MenuRequest menuRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(menuService.saveMenuRequest(menuRequest));
+    public ResponseEntity<Menu> createMenu(@RequestBody MenuRequest menuRequest, @RequestHeader("Authorization") String token) {
+        if (token != null && jwtUtil.validateToken(token.replace("Bearer ", ""))) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(menuService.saveMenuRequest(menuRequest));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Menu> updateMenu(@PathVariable Long id, @RequestBody MenuRequest menuRequest) {
-        return ResponseEntity.ok(menuService.updateMenuRequest(menuRequest, id));
+    public ResponseEntity<Menu> updateMenu(@PathVariable Long id, @RequestBody MenuRequest menuRequest, @RequestHeader("Authorization") String token) {
+        if (token != null && jwtUtil.validateToken(token.replace("Bearer ", ""))) {
+            return ResponseEntity.ok(menuService.updateMenuRequest(menuRequest, id));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMenu(@PathVariable Long id) {
-        menuService.deleteById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteMenu(@PathVariable Long id, @RequestHeader("Authorization") String token) {
+        if (token != null && jwtUtil.validateToken(token.replace("Bearer ", ""))) {
+            menuService.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @GetMapping("/{id}/comidas")
-    public ResponseEntity<List<Comida>> getComidas(@PathVariable Long id) {
-        return ResponseEntity.ok(menuService.findById(id).getComidas());
+    public ResponseEntity<List<Comida>> getComidas(@PathVariable Long id, @RequestHeader("Authorization") String token) {
+        if (token != null && jwtUtil.validateToken(token.replace("Bearer ", ""))) {
+            return ResponseEntity.ok(menuService.findById(id).getComidas());
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 }

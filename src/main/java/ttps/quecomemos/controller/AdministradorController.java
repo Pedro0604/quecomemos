@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ttps.quecomemos.modelo.usuario.Administrador;
 import ttps.quecomemos.modelo.usuario.CredencialAuth;
 import ttps.quecomemos.service.usuario.AdministradorService;
+import ttps.quecomemos.utils.JwtUtil;
 
 @CrossOrigin(
         origins = "http://localhost:4200",
@@ -20,6 +21,7 @@ import ttps.quecomemos.service.usuario.AdministradorService;
 public class AdministradorController {
 
     private final AdministradorService administradorService;
+    private final JwtUtil jwtUtil = new JwtUtil();
 
     @Autowired
     public AdministradorController(AdministradorService administradorService) {
@@ -39,12 +41,11 @@ public class AdministradorController {
 
     @PostMapping("/autenticacion")
     public ResponseEntity<Administrador> authenticateAdmin(@RequestBody CredencialAuth credenciales) {
-        Long adminId = administradorService.autenticar(credenciales.getDni(), credenciales.getClave());
-        if (adminId.intValue() != -1) {
-            String token = adminId + "123456";
+        Long clienteId = administradorService.autenticar(credenciales.getDni(), credenciales.getClave());
+        if (clienteId != -1) {
+            String token = jwtUtil.generateToken(clienteId.toString());
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Authorization", token);
-
+            headers.add("Authorization", "Bearer " + token);
             return new ResponseEntity<>(headers, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.OK);

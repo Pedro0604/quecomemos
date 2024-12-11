@@ -9,6 +9,7 @@ import ttps.quecomemos.modelo.usuario.Administrador;
 import ttps.quecomemos.modelo.usuario.CredencialAuth;
 import ttps.quecomemos.modelo.usuario.ResponsableDeTurno;
 import ttps.quecomemos.service.usuario.ResponsableDeTurnoService;
+import ttps.quecomemos.utils.JwtUtil;
 
 @CrossOrigin(
         origins = "http://localhost:4200",
@@ -21,6 +22,7 @@ import ttps.quecomemos.service.usuario.ResponsableDeTurnoService;
 public class ResponsableDeTurnoController {
 
     private final ResponsableDeTurnoService responsableDeTurnoService;
+    private final JwtUtil jwtUtil = new JwtUtil();
 
     @Autowired
     public ResponsableDeTurnoController(ResponsableDeTurnoService responsableDeTurnoService) {
@@ -40,12 +42,11 @@ public class ResponsableDeTurnoController {
 
     @PostMapping("/autenticacion")
     public ResponseEntity<Administrador> authenticateAdmin(@RequestBody CredencialAuth credenciales) {
-        Long responsableId = responsableDeTurnoService.autenticar(credenciales.getDni(), credenciales.getClave());
-        if (responsableId.intValue() != -1) {
-            String token = responsableId + "123456";
+        Long clienteId = responsableDeTurnoService.autenticar(credenciales.getDni(), credenciales.getClave());
+        if (clienteId != -1) {
+            String token = jwtUtil.generateToken(clienteId.toString());
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Authorization", token);
-
+            headers.add("Authorization", "Bearer " + token);
             return new ResponseEntity<>(headers, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.OK);
