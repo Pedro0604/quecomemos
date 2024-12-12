@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public abstract class GenericService<T> {
 
-    private final JpaRepository<T, Long> repository;
+    protected final JpaRepository<T, Long> repository;
 
     public String getName() {
         return this.getClass().getSimpleName().toLowerCase().replace("service", "");
