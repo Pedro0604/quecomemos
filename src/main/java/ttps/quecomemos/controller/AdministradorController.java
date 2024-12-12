@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ttps.quecomemos.modelo.usuario.Administrador;
 import ttps.quecomemos.modelo.usuario.CredencialAuth;
 import ttps.quecomemos.service.usuario.AdministradorService;
-import ttps.quecomemos.utils.JwtUtil;
+import ttps.quecomemos.util.JwtUtil;
 
 @CrossOrigin(
         origins = "http://localhost:4200",

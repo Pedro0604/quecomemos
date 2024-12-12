@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ttps.quecomemos.modelo.menu.Comida;
 import ttps.quecomemos.service.menu.ComidaService;
-import ttps.quecomemos.utils.JwtUtil;
+import ttps.quecomemos.util.JwtUtil;
 
 import java.util.List;
 

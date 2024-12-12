@@ -1,4 +1,4 @@
-package ttps.quecomemos.utils;
+package ttps.quecomemos.util;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
