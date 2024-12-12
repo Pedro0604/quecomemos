@@ -5,70 +5,70 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ttps.quecomemos.modelo.menu.Comida;
-import ttps.quecomemos.service.menu.ComidaService;
+import ttps.quecomemos.dto.MenuDiarioRequest;
+import ttps.quecomemos.modelo.menu.MenuDiario;
+import ttps.quecomemos.service.menu.MenuDiarioService;
 import ttps.quecomemos.util.JwtUtil;
 
 import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping(path = "/comidas", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ComidaController {
+@RequestMapping(path = "/menus-diarios", produces = MediaType.APPLICATION_JSON_VALUE)
 
-    private final ComidaService comidaService;
+public class MenuDiarioController {
+
+    private final MenuDiarioService menuDiarioService;
     private final JwtUtil jwtUtil = new JwtUtil();
 
     @Autowired
-    public ComidaController(ComidaService comidaService) {
-        this.comidaService = comidaService;
+    public MenuDiarioController(MenuDiarioService menuDiarioService) {
+        this.menuDiarioService = menuDiarioService;
     }
 
-    @GetMapping // Maneja las solicitudes GET en /api/comidas
-    public ResponseEntity<List<Comida>> getAllComidas(@RequestHeader("Authorization") String token) {
+    @GetMapping
+    public ResponseEntity<List<MenuDiario>> getAllMenusDiarios(@RequestHeader("Authorization") String token) {
         if (token != null && jwtUtil.validateToken(token.replace("Bearer ", ""))) {
-            return ResponseEntity.ok(comidaService.findAll());
+            return ResponseEntity.ok(menuDiarioService.findAll());
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Comida> getComida(@PathVariable Long id, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<MenuDiario> getMenuDiario(@PathVariable Long id, @RequestHeader("Authorization") String token) {
         if (token != null && jwtUtil.validateToken(token.replace("Bearer ", ""))) {
-            return ResponseEntity.ok(comidaService.findById(id));
+            return ResponseEntity.ok(menuDiarioService.findById(id));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
     @PostMapping
-    public ResponseEntity<Comida> createComida(@RequestBody Comida comida, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<MenuDiario> createMenuDiario(@RequestBody MenuDiarioRequest menuDiarioRequest, @RequestHeader("Authorization") String token) {
         if (token != null && jwtUtil.validateToken(token.replace("Bearer ", ""))) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(comidaService.save(comida));
+            return ResponseEntity.status(HttpStatus.CREATED).body(menuDiarioService.saveMenuDiarioRequest(menuDiarioRequest));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Comida> editComida(@RequestBody Comida comida,  @PathVariable Long id, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<MenuDiario> updateMenuDiario(@PathVariable Long id, @RequestBody MenuDiarioRequest menuDiarioRequest, @RequestHeader("Authorization") String token) {
         if (token != null && jwtUtil.validateToken(token.replace("Bearer ", ""))) {
-            comida.setId(id);
-            return ResponseEntity.ok(comidaService.update(comida, id));
+            return ResponseEntity.ok(menuDiarioService.updateMenuDiarioRequest(menuDiarioRequest, id));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Comida> deleteComida(@PathVariable Long id, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<Void> deleteMenuDiario(@PathVariable Long id, @RequestHeader("Authorization") String token) {
         if (token != null && jwtUtil.validateToken(token.replace("Bearer ", ""))) {
-            comidaService.deleteById(id);
+            menuDiarioService.deleteById(id);
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
-
 }

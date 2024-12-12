@@ -9,7 +9,7 @@ import ttps.quecomemos.dto.MenuRequest;
 import ttps.quecomemos.modelo.menu.Comida;
 import ttps.quecomemos.modelo.menu.Menu;
 import ttps.quecomemos.service.menu.MenuService;
-import ttps.quecomemos.utils.JwtUtil;
+import ttps.quecomemos.util.JwtUtil;
 
 import java.util.List;
 

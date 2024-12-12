@@ -9,7 +9,7 @@ import ttps.quecomemos.modelo.usuario.Administrador;
 import ttps.quecomemos.modelo.usuario.CredencialAuth;
 import ttps.quecomemos.modelo.usuario.ResponsableDeTurno;
 import ttps.quecomemos.service.usuario.ResponsableDeTurnoService;
-import ttps.quecomemos.utils.JwtUtil;
+import ttps.quecomemos.util.JwtUtil;
 
 @CrossOrigin(
         origins = "http://localhost:4200",
