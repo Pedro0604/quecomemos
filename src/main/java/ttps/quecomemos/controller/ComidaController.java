@@ -61,5 +61,14 @@ public class ComidaController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Comida> deleteComida(@PathVariable Long id, @RequestHeader("Authorization") String token) {
+        if (token != null && jwtUtil.validateToken(token.replace("Bearer ", ""))) {
+            comidaService.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
 
 }
