@@ -44,6 +44,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>("Error: Un menú debe contener al menos una comida", HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(MenuDiarioSinMenusException.class)
+    public ResponseEntity<String> handleMenuDiarioSinMenusException() {
+        return new ResponseEntity<>("Error: Un menú diario debe contener un menú vegetariano y un menú no vegetariano", HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(EmptyListException.class)
     public ResponseEntity<String> handleEmptyListException() {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

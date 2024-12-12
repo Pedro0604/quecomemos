@@ -3,6 +3,8 @@ package ttps.quecomemos.modelo.menu;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ttps.quecomemos.dto.MenuDiarioRequest;
+import ttps.quecomemos.exception.MenuDiarioSinMenusException;
 
 import java.time.DayOfWeek;
 
@@ -18,30 +20,34 @@ public class MenuDiario {
     @Column(nullable = false)
     private DayOfWeek dia;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "menu_vegetariano_id", nullable = false)
     private Menu menuVegetariano;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "menu_no_vegetariano_id", nullable = false)
     private Menu menuNoVegetariano;
 
+    public MenuDiario(MenuDiarioRequest menuDiarioRequest) {
+        this.dia = menuDiarioRequest.getDia();
+    }
+
     public void setMenuVegetariano(Menu menuVegetariano) {
         if (menuVegetariano == null) {
-            throw new IllegalArgumentException("El menu no puede ser nulo");
+            throw new MenuDiarioSinMenusException();
         }
         if (!menuVegetariano.isVegetariano()) {
-            throw new IllegalArgumentException("El menu debe ser vegetariano");
+            throw new IllegalArgumentException("El menu vegetariano debe ser vegetariano");
         }
         this.menuVegetariano = menuVegetariano;
     }
 
     public void setMenuNoVegetariano(Menu menuNoVegetariano) {
         if (menuNoVegetariano == null) {
-            throw new IllegalArgumentException("El menu no puede ser nulo");
+            throw new MenuDiarioSinMenusException();
         }
         if (menuNoVegetariano.isVegetariano()) {
-            throw new IllegalArgumentException("El menu no puede ser vegetariano");
+            throw new IllegalArgumentException("El menu no vegetariano no puede ser vegetariano");
         }
         this.menuNoVegetariano = menuNoVegetariano;
     }
