@@ -35,6 +35,12 @@ public class MenuDiarioController {
         }
     }
 
+    @GetMapping("/semanal")
+    public ResponseEntity<List<MenuDiario>> getAllMenusDiariosSemanalas() {
+            List<MenuDiario> menus = menuDiarioService.getAllMenusDiariosSemanalas();
+            return ResponseEntity.ok(menus);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<MenuDiario> getMenuDiario(@PathVariable Long id, @RequestHeader("Authorization") String token) {
         if (token != null && jwtUtil.validateToken(token.replace("Bearer ", ""))) {

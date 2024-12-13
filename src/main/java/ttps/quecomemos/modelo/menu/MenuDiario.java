@@ -7,6 +7,7 @@ import ttps.quecomemos.dto.MenuDiarioRequest;
 import ttps.quecomemos.exception.MenuDiarioSinMenusException;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -27,6 +28,16 @@ public class MenuDiario {
     @ManyToOne()
     @JoinColumn(name = "menu_no_vegetariano_id", nullable = false)
     private Menu menuNoVegetariano;
+
+    @Column(name = "created_at")
+    private LocalDate createdAt;
+
+    @PrePersist
+    public void prePersist() {
+        if (this.createdAt == null) {
+            this.createdAt = LocalDate.now(); // Asignar la fecha actual si no está presente
+        }
+    }
 
     public MenuDiario(MenuDiarioRequest menuDiarioRequest) {
         this.dia = menuDiarioRequest.getDia();

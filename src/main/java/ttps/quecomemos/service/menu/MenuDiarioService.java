@@ -9,6 +9,9 @@ import ttps.quecomemos.modelo.menu.MenuDiario;
 import ttps.quecomemos.repository.menu.MenuDiarioRepository;
 import ttps.quecomemos.service.GenericService;
 
+import java.time.DayOfWeek;
+import java.util.*;
+
 // Las validaciones sobre los datos de los menús las realiza la clase
 @Service
 public class MenuDiarioService extends GenericService<MenuDiario> {
@@ -18,6 +21,24 @@ public class MenuDiarioService extends GenericService<MenuDiario> {
     public MenuDiarioService(MenuDiarioRepository menuDiarioRepository, MenuService menuService) {
         super(menuDiarioRepository);
         this.menuService = menuService;
+    }
+
+    public List<MenuDiario> getAllMenusDiariosSemanalas() {
+        List<MenuDiario> menus = this.findAll();
+
+        // Mapa para guardar el último menú de cada día
+        Map<DayOfWeek, MenuDiario> lastMenuByDay = new EnumMap<>(DayOfWeek.class);
+
+        for (MenuDiario menu : menus) {
+            if (!lastMenuByDay.containsKey(menu.getDia()) || menu.getCreatedAt().isAfter(lastMenuByDay.get(menu.getDia()).getCreatedAt())) {
+                lastMenuByDay.put(menu.getDia(), menu);
+            }
+        }
+
+        List<MenuDiario> sortedMenus = new ArrayList<>(lastMenuByDay.values());
+        sortedMenus.sort(Comparator.comparing(menu -> menu.getDia().getValue()));
+
+        return sortedMenus;
     }
 
     private MenuDiario createMenuDiarioFromRequest(MenuDiarioRequest menuDiarioRequest) {
