@@ -30,7 +30,7 @@ public class MenuDiarioService extends GenericService<MenuDiario> {
         Map<DayOfWeek, MenuDiario> lastMenuByDay = new EnumMap<>(DayOfWeek.class);
 
         for (MenuDiario menu : menus) {
-            if (!lastMenuByDay.containsKey(menu.getDia()) || menu.getCreatedAt().isAfter(lastMenuByDay.get(menu.getDia()).getCreatedAt())) {
+            if (!lastMenuByDay.containsKey(menu.getDia()) || menu.getUpdatedAt().isAfter(lastMenuByDay.get(menu.getDia()).getUpdatedAt())) {
                 lastMenuByDay.put(menu.getDia(), menu);
             }
         }
